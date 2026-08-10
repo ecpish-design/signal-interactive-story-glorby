@@ -43,7 +43,7 @@ button{cursor:pointer}
 @media print{.hud-top,.ticker,.story-nav,.cert-actions{display:none!important}.scene{padding:0}.certificate{border:2px solid #000;margin:0;max-width:none;min-height:95vh;display:flex;flex-direction:column;justify-content:center}.app-shell:before,.app-shell:after{display:none}}
 
 
-/* KINETIC STORY LAYER — intentionally white, technical, and image-led */
+/* KINETIC STORY LAYER: intentionally white, technical, and image-led */
 .scene-wrap:not(.full)::before{
   content:"";position:absolute;inset:2% -1%;pointer-events:none;opacity:.42;
   background:

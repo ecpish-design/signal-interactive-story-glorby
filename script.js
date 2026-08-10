@@ -67,7 +67,7 @@ const scenes = [
   {
     id:'alert', label:'ZORBAX-9 // 17:06:42', eyebrow:'SOMEWHERE IN ZORBAX // ORBITAL LANE', title:'SYSTEM FAILURE', image:'cockpit-warning', imageClass:'large', effect:'warn',
     lines:[
-      {t:'BEEP — BEEP — BEEP!!',c:'system red big'},
+      {t:'BEEP. BEEP. BEEP!!',c:'system red big'},
       {t:'Ship is going down. I repeat: ship is going down.',c:'glorb'},
       {t:'According to my notes, all elements are pointing to total signal meltdown...',c:'glorb'},
       {t:'My ears. My dashboard. And my.........',c:'glorb'},
@@ -82,7 +82,7 @@ const scenes = [
     id:'wreck', label:'POST-INCIDENT // +00:03:14', eyebrow:'ZORBAX-9 RESEARCH DIVISION', title:'WHAT HAPPENED?', image:'wreck-polaroid',
     lines:[
       {t:'My ship is in several pieces.',c:'glorb'},
-      {t:'Before I blame the Gleborna aliens — which is still tempting — I need to work out what actually happened.',c:'glorb'},
+      {t:'Before I blame the Gleborna aliens, which is still tempting, I need to work out what actually happened.',c:'glorb'},
       {t:'{{agent}}, the flight recorder survived. Help me reconstruct the day?',c:'system'}
     ],
     choice:{prompt:'Choose Glorb’s next move.', options:[
@@ -101,7 +101,7 @@ const scenes = [
       {t:'Woke up tired.',c:'glorb blue'},
       {t:'Couldn’t start the ship. Just sank.....',c:'glorb'},
       {t:'Had breakfast. Rested.',c:'glorb'},
-      {t:'Played with Frog — my flying space dog.',c:'glorb'},
+      {t:'Played with Frog, my flying space dog.',c:'glorb'},
       {t:'After a while, I started to pick up a bit.',c:'glorb'}
     ], auto:true
   },
@@ -142,7 +142,7 @@ const scenes = [
       {label:'HIS EARS / BODY FELT DIFFERENT',correct:true},
       {label:'THE DASHBOARD FLASHED',correct:true},
       {label:'THE MUSIC STOPPED',correct:false}
-    ], feedback:'Exactly. The warning was on the ship — and in Glorb’s body.'}
+    ], feedback:'Exactly. The warning was on the ship and in Glorb’s body.'}
   },
   {
     id:'push', label:'LOG // 08:20', eyebrow:'ENGINE LOAD // INCREASING', title:'PUSH. PUSH. PUSH.', image:'crash-sequence', imageClass:'large', effect:'warn',
@@ -320,7 +320,7 @@ function renderStart(){
       <h1 class="scene-title">GLORB:<br>THE SIGNAL MISSION</h1>
       <p class="scene-subtitle">Interactive field investigation // Middle-school research access</p>
       <div class="hud-card" style="max-width:680px;margin:0 auto">
-        <p style="font-size:19px;line-height:1.55;margin:0">Glorb’s third ship has exploded. Enter the recovered flight log, reconstruct what happened, and follow the clue that changes the way Glorb understands himself — and people on Earth.</p>
+        <p style="font-size:19px;line-height:1.55;margin:0">Glorb’s third ship has exploded. Enter the recovered flight log, reconstruct what happened, and follow the clue that changes the way Glorb understands himself and people on Earth.</p>
         <div class="name-entry">
           <input id="nameInput" type="text" maxlength="40" autocomplete="name" placeholder="ENTER AGENT NAME" value="${escapeHTML(state.name)}" aria-label="Enter your name">
           <button id="startMissionBtn" type="button">BEGIN MISSION →</button>
@@ -391,7 +391,7 @@ function renderGraph(){
   </section>`;
   document.querySelectorAll('.graph-node').forEach(btn=>btn.addEventListener('click',()=>{
     const k=btn.dataset.key; state.graphSeen.add(k); document.querySelectorAll('.graph-node').forEach(x=>x.classList.toggle('active',x===btn));
-    document.getElementById('graphReadout').innerHTML=`<strong class="${signalMeta[k].color}">${signalMeta[k].label}</strong> — ${signalMeta[k].desc}`;
+    document.getElementById('graphReadout').innerHTML=`<strong class="${signalMeta[k].color}">${signalMeta[k].label}</strong>: ${signalMeta[k].desc}`;
     tone(k==='low'?260:k==='steady'?390:k==='rising'?520:700,.07,'sine',.018);
     if(state.graphSeen.size===4) unlock(true); else setNav(true,false,`INSPECTED ${state.graphSeen.size}/4`);
   }));
@@ -478,7 +478,7 @@ function renderStrategies(){
   sceneEl.innerHTML=`<section class="scene-wrap full">
     <div class="eyebrow">EARTH FIELD LAB // RESPONSE OPTIONS</div>
     <h1 class="scene-title small">KNOWING THE SIGNAL CHANGES WHAT CAN HELP</h1>
-    <p style="font-size:19px;max-width:950px;line-height:1.5">Match each support to the signal level it is designed for. The goal is not to “fix” every feeling — it is to respond to what the system needs.</p>
+    <p style="font-size:19px;max-width:950px;line-height:1.5">Match each support to the signal level it is designed for. The goal is not to “fix” every feeling. It is to respond to what the system needs.</p>
     <div id="strategyBoard" class="strategy-board"></div>
     <div id="strategyStatus" class="sort-status"></div>
   </section>`;
@@ -543,7 +543,7 @@ function renderCertificate(){
     <h1>CERTIFICATE<br>OF COMPLETION</h1>
     <p>This certifies that</p>
     <div class="cert-name">${escapeHTML(agentName())}</div>
-    <div class="cert-body"><p>has completed <strong>GLORB: THE SIGNAL MISSION — INCIDENT ESAU-32A</strong>.</p>
+    <div class="cert-body"><p>has completed <strong>GLORB: THE SIGNAL MISSION: INCIDENT ESAU-32A</strong>.</p>
     <p>During this mission, ${escapeHTML(agentName())} investigated Glorb’s ship crash, tracked how signals changed from Low to Steady to Rising to Overload, connected dashboard warnings to Glorb’s ears and body, recognised human emotions as outside signals, matched helpful responses and used the learning to change the outcome of a replayed Earth incident.</p>
     <p><strong>${escapeHTML(agentName())} can now:</strong> notice changing signals, recognise when a person may need support or space, and choose a response before a situation gets bigger.</p></div>
     <div class="cert-stamp">MISSION STATUS // COMPLETE &nbsp;&nbsp; RESEARCH LOG // VERIFIED</div>
@@ -551,7 +551,7 @@ function renderCertificate(){
   </section>`;
   document.getElementById('printCert').addEventListener('click',()=>window.print());
   document.getElementById('shareCert').addEventListener('click',async()=>{
-    const text=`${agentName()} completed Glorb: The Signal Mission — Incident ESAU-32A.`;
+    const text=`${agentName()} completed Glorb: The Signal Mission: Incident ESAU-32A.`;
     if(navigator.share){try{await navigator.share({title:'Glorb: The Signal Mission',text});}catch(e){}}
     else{await navigator.clipboard.writeText(text);alert('Completion message copied to clipboard.');}
   });
