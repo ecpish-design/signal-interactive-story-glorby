@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Glorb: The Signal Mission</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="hud-top" aria-label="Story controls">
+      <div class="hud-brand">
+        <span class="hud-dot" aria-hidden="true"></span>
+        <span>GLORB // SIGNAL MISSION</span>
+      </div>
+      <div class="hud-progress" aria-label="Mission progress">
+        <span id="progressText">MISSION // STANDBY</span>
+        <div class="progress-track" aria-hidden="true"><div id="progressBar" class="progress-bar"></div></div>
+      </div>
+      <div class="hud-actions">
+        <button id="soundBtn" class="icon-btn" type="button" aria-pressed="true" title="Sound on">SOUND: ON</button>
+        <button id="readBtn" class="icon-btn" type="button" title="Read this screen aloud">READ</button>
+        <button id="transcriptBtn" class="icon-btn" type="button" title="Open transcript">TRANSCRIPT</button>
+      </div>
+    </header>
+
+    <div class="ticker" aria-hidden="true"><div id="tickerText" class="ticker-text">ZORBAX-9 RESEARCH DIVISION // INCIDENT ESAU-32A // INTERNAL USE ONLY //</div></div>
+
+    <main id="scene" class="scene" tabindex="-1" aria-live="polite"></main>
+
+    <footer class="story-nav">
+      <button id="backBtn" type="button" class="nav-btn ghost">← BACK</button>
+      <div id="navHint" class="nav-hint">SELECT AN OPTION TO CONTINUE</div>
+      <button id="nextBtn" type="button" class="nav-btn primary">NEXT →</button>
+    </footer>
+  </div>
+
+  <dialog id="transcriptDialog" class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">CURRENT SCREEN</div>
+        <h2>Transcript</h2>
+      </div>
+      <button class="icon-btn" type="button" data-close-dialog>EXIT</button>
+    </div>
+    <div id="transcriptContent" class="transcript-content"></div>
+  </dialog>
+
+  <dialog id="evidenceDialog" class="modal evidence-modal">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">FLIGHT RECORDER // ARCHIVE</div>
+        <h2 id="evidenceTitle">Evidence</h2>
+      </div>
+      <button class="icon-btn" type="button" data-close-dialog>EXIT</button>
+    </div>
+    <div id="evidenceContent" class="evidence-content"></div>
+  </dialog>
+
+  <template id="choiceTemplate">
+    <button type="button" class="choice-card"></button>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
