@@ -22,3 +22,10 @@ Implemented:
 11. 19-emotion sort reduced to 4 practice emotions; full guide reveals afterward.
 12. Replay answers mixed; wrong answers become grey/TRIED.
 13. Certificate and all unmentioned scenes remain unchanged.
+
+14. Follow-up: prompt now says WHAT SHOULD GLORB DO FIRST?
+15. READ button toggles to STOP READING while speech is active.
+16. Four-emotion sort now shows short Signal descriptions and uses Signal Manual wording in hints.
+17. Support activity simplified to Year 5 language: WHAT MIGHT HELP? / Which signal could this help with?
+18. Support Signal buttons are colour-coded.
+19. Wrong support choices become grey, disabled, and marked TRIED.

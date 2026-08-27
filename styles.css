@@ -252,3 +252,61 @@ button{cursor:pointer}
   .cert-body{font-size:9px}
   .cert-actions .nav-btn{font-size:7px;padding:5px}
 }
+
+
+/* Approved follow-up edits */
+.zone-desc{
+  margin:-3px 0 10px;
+  font-size:12px;
+  line-height:1.3;
+  color:var(--muted);
+}
+.strategy-prompt{
+  margin:4px 0 8px;
+  font:700 9px "Courier New",monospace;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#777f86;
+}
+.strategy-options button.signal-choice.low{
+  border-color:var(--blue);
+  color:var(--blue);
+  background:#f3f6ff;
+}
+.strategy-options button.signal-choice.steady{
+  border-color:var(--green);
+  color:var(--green);
+  background:#f2faf6;
+}
+.strategy-options button.signal-choice.rising{
+  border-color:var(--orange);
+  color:#a84209;
+  background:#fff7f1;
+}
+.strategy-options button.signal-choice.overload{
+  border-color:var(--red);
+  color:#9f1414;
+  background:#fff4f4;
+}
+.strategy-options button.signal-choice.good{
+  outline:2px solid currentColor;
+  outline-offset:1px;
+  font-weight:800;
+}
+.strategy-options button.signal-choice.tried,
+.strategy-options button.signal-choice.tried:hover,
+.strategy-options button.signal-choice.tried:focus-visible{
+  background:#eef0f2;
+  color:#7b8288;
+  border-color:#cfd4d8;
+  opacity:1;
+  cursor:not-allowed;
+}
+@media(max-width:1100px){
+  .zone-desc{font-size:9px;margin:-2px 0 5px}
+  .strategy-prompt{font-size:7px;margin:2px 0 4px}
+}
+@media(max-width:699px){
+  .zone-desc{font-size:7px;line-height:1.2;margin:-1px 0 3px}
+  .strategy-prompt{font-size:6px}
+}

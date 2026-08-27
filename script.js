@@ -85,7 +85,7 @@ const scenes = [
       {t:'Before I blame the Gleborna aliens, which is still tempting, I need to work out what actually happened.',c:'glorb'},
       {t:'{{agent}}, the flight recorder survived. Help me reconstruct the day?',c:'system'}
     ],
-    choice:{prompt:'WHAT SHOULD GLORB CHECK FIRST?', options:[
+    choice:{prompt:'WHAT SHOULD GLORB DO FIRST?', options:[
       {label:'TRAVEL BACK TO THE START OF THE DAY',correct:true,feedback:'Yes. Going back to the start of the day can show what happened before the crash.'},
       {label:'THE BROKEN WING',feedback:'The broken wing shows us what happened during the crash, but not what happened before it. Try something that takes us back earlier.'},
       {label:'THE SNACK CUPBOARD',feedback:'Important research, obviously. But snacks cannot show us what happened before the crash. Try something that takes us back to the beginning.'}
@@ -298,10 +298,10 @@ const strategies = [
   ['Get to a safe, quiet space','overload'],['Ask a trusted adult for help','overload']
 ];
 const signalMeta = {
-  low:{label:'Low Signal',color:'blue',header:'low-header',report:'report-low',desc:'Energy is running low. Glorb may feel flat, tired, slower, less aware or less ready.'},
-  steady:{label:'Steady Signal',color:'green',header:'steady-header',report:'report-steady',desc:'Things are working as expected. Glorb is calm enough to focus, notice what is happening and keep going.'},
-  rising:{label:'Rising Signal',color:'orange',header:'rising-header',report:'report-rising',desc:'Something is building. Glorb may feel more tense, jumpy, annoyed, excited, urgent or reactive. This is an early-warning stage.'},
-  overload:{label:'Signal Overload',color:'red',header:'overload-header',report:'report-overload',desc:'The system is overwhelmed. Thinking clearly and making good decisions becomes much harder. Safety and space matter first.'}
+  low:{label:'Low Signal',color:'blue',header:'low-header',report:'report-low',short:'Energy is running low.',desc:'Energy is running low. Glorb may feel flat, tired, slower, less aware or less ready.'},
+  steady:{label:'Steady Signal',color:'green',header:'steady-header',report:'report-steady',short:'Things are working as expected.',desc:'Things are working as expected. Glorb is calm enough to focus, notice what is happening and keep going.'},
+  rising:{label:'Rising Signal',color:'orange',header:'rising-header',report:'report-rising',short:'Something is building.',desc:'Something is building. Glorb may feel more tense, jumpy, annoyed, excited, urgent or reactive. This is an early-warning stage.'},
+  overload:{label:'Signal Overload',color:'red',header:'overload-header',report:'report-overload',short:'The system is overwhelmed.',desc:'The system is overwhelmed. Thinking clearly and making good decisions becomes much harder. Safety and space matter first.'}
 };
 
 function lineHTML(line,index){
@@ -500,7 +500,7 @@ function renderSort(){
     <div class="sort-layout">
       <aside class="card-bank"><div class="bank-title">UNSORTED HUMAN SIGNALS // <span id="sortCount"></span></div><div id="emotionBank" class="emotion-bank"></div><div id="sortFeedback" class="sort-status">SELECT A CARD</div></aside>
       <div id="dropGrid" class="drop-grid">
-        ${Object.keys(signalMeta).map(k=>`<div class="drop-zone ${k}" data-zone="${k}" tabindex="0" role="button" aria-label="Place selected feeling in ${signalMeta[k].label}"><h3>${signalMeta[k].label}</h3><div class="placed-list" id="placed-${k}"></div><div id="reveal-${k}"></div></div>`).join('')}
+        ${Object.keys(signalMeta).map(k=>`<div class="drop-zone ${k}" data-zone="${k}" tabindex="0" role="button" aria-label="Place selected feeling in ${signalMeta[k].label}"><h3>${signalMeta[k].label}</h3><p class="zone-desc">${signalMeta[k].short}</p><div class="placed-list" id="placed-${k}"></div><div id="reveal-${k}"></div></div>`).join('')}
       </div>
     </div>
   </section>`;
@@ -525,8 +525,17 @@ function selectEmotion(btn){
 function placeEmotion(word,zone){
   const item=sortItems.find(x=>x[0]===word); if(!item||state.sortDone.has(word))return;
   const f=document.getElementById('sortFeedback');
-  if(item[1]===zone){state.sortDone.add(word);state.selectedEmotion=null;sfxConfirm();f.textContent=`MATCHED: ${word.toUpperCase()} → ${signalMeta[zone].label.toUpperCase()}`;refreshSort();}
-  else{sfxRetry();f.textContent=`NOT QUITE: ${word.toUpperCase()} DOES NOT MATCH ${signalMeta[zone].label.toUpperCase()}. TRY AGAIN.`;}
+  if(item[1]===zone){
+    state.sortDone.add(word);
+    state.selectedEmotion=null;
+    sfxConfirm();
+    f.textContent=`YES. ${word.toUpperCase()} FITS ${signalMeta[zone].label.toUpperCase()} — ${signalMeta[zone].short}`;
+    refreshSort();
+  } else {
+    const correctZone=item[1];
+    sfxRetry();
+    f.textContent=`NOT QUITE. ${signalMeta[zone].label.toUpperCase()} MEANS: ${signalMeta[zone].desc} ${word.toUpperCase()} FITS BETTER WITH ${signalMeta[correctZone].label.toUpperCase()}: ${signalMeta[correctZone].short}`;
+  }
 }
 function refreshSort(){
   document.querySelectorAll('.emotion-card').forEach(b=>b.classList.toggle('done',state.sortDone.has(b.dataset.word)));
@@ -545,23 +554,37 @@ function refreshSort(){
 }
 
 function renderStrategies(){
-  currentTranscript=['What can help?','Choose which signal level each support strategy best matches.'];
+  currentTranscript=['What might help?','Which signal could this help with?','Different things help different people. These are just examples.'];
   sceneEl.className='scene';
   sceneEl.innerHTML=`<section class="scene-wrap full">
     <div class="eyebrow">EARTH FIELD LAB // RESPONSE OPTIONS</div>
-    <h1 class="scene-title small">KNOWING THE SIGNAL CHANGES WHAT CAN HELP</h1>
-    <p style="font-size:19px;max-width:950px;line-height:1.5">Match each support to the signal level it is designed for. The goal is not to “fix” every feeling. It is to respond to what the system needs.</p>
+    <h1 class="scene-title small">WHAT MIGHT HELP?</h1>
+    <p style="font-size:19px;max-width:950px;line-height:1.5"><strong>Which signal could this help with?</strong><br>Different things help different people. These are just examples.</p>
     <div id="strategyBoard" class="strategy-board"></div>
     <div id="strategyStatus" class="sort-status"></div>
   </section>`;
   const board=document.getElementById('strategyBoard');
   strategies.forEach(([text,cat],i)=>{
     const done=state.strategyDone.has(i);
-    const card=document.createElement('div');card.className='strategy-card';card.innerHTML=`<div class="eyebrow">RESPONSE ${String(i+1).padStart(2,'0')}</div><h3>${escapeHTML(text)}</h3><div class="strategy-options">${Object.keys(signalMeta).map(k=>`<button type="button" data-k="${k}" ${done?'disabled':''}>${signalMeta[k].label}</button>`).join('')}</div>`;
+    const card=document.createElement('div');
+    card.className='strategy-card';
+    card.innerHTML=`<div class="eyebrow">RESPONSE ${String(i+1).padStart(2,'0')}</div><h3>${escapeHTML(text)}</h3><div class="strategy-prompt">Which signal could this help with?</div><div class="strategy-options">${Object.keys(signalMeta).map(k=>`<button type="button" class="signal-choice ${k}" data-k="${k}" ${done?'disabled':''}>${signalMeta[k].label}</button>`).join('')}</div>`;
     card.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
-      if(b.dataset.k===cat){state.strategyDone.add(i);b.classList.add('good');card.querySelectorAll('button').forEach(x=>x.disabled=true);sfxConfirm();refreshStrategies();}
-      else{b.classList.add('bad');sfxRetry();setTimeout(()=>b.classList.remove('bad'),600);}
-    })); board.appendChild(card);
+      if(b.dataset.k===cat){
+        state.strategyDone.add(i);
+        b.classList.add('good');
+        card.querySelectorAll('button').forEach(x=>x.disabled=true);
+        sfxConfirm();
+        refreshStrategies();
+      } else {
+        b.classList.remove('bad');
+        b.classList.add('tried');
+        b.textContent=`${signalMeta[b.dataset.k].label} — TRIED`;
+        b.disabled=true;
+        sfxRetry();
+      }
+    }));
+    board.appendChild(card);
   });
   refreshStrategies();
 }
@@ -669,13 +692,33 @@ function renderScene(){
 }
 function unlock(value=true,hint='CONTINUE WHEN READY'){state.sceneUnlocked=value;setNav(state.index>0,value,hint)}
 function setNav(back,next,hint){backBtn.disabled=!back;nextBtn.disabled=!next;nextBtn.style.visibility=state.index===scenes.length-1?'hidden':'visible';navHint.textContent=hint||'';}
-function goTo(i){if(i<0||i>=scenes.length)return;window.speechSynthesis?.cancel();state.index=i;renderScene();}
+function goTo(i){if(i<0||i>=scenes.length)return;window.speechSynthesis?.cancel();readBtn.textContent='READ';readBtn.title='Read this screen aloud';state.index=i;renderScene();}
 
 nextBtn.addEventListener('click',()=>{if(state.sceneUnlocked)goTo(state.index+1)});
 backBtn.addEventListener('click',()=>goTo(state.index-1));
 soundBtn.addEventListener('click',()=>{state.sound=!state.sound;soundBtn.textContent=`SOUND: ${state.sound?'ON':'OFF'}`;soundBtn.setAttribute('aria-pressed',String(state.sound));if(state.sound){initAudio();sfxConfirm();}});
 readBtn.addEventListener('click',()=>{
-  if(!('speechSynthesis'in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(currentTranscript.map(cleanText).join('. '));u.rate=.94;u.pitch=1;window.speechSynthesis.speak(u);
+  if(!('speechSynthesis'in window))return;
+  if(window.speechSynthesis.speaking || window.speechSynthesis.pending){
+    window.speechSynthesis.cancel();
+    readBtn.textContent='READ';
+    readBtn.title='Read this screen aloud';
+    return;
+  }
+  const u=new SpeechSynthesisUtterance(currentTranscript.map(cleanText).join('. '));
+  u.rate=.94;
+  u.pitch=1;
+  u.onstart=()=>{
+    readBtn.textContent='STOP READING';
+    readBtn.title='Stop reading aloud';
+  };
+  const resetReadButton=()=>{
+    readBtn.textContent='READ';
+    readBtn.title='Read this screen aloud';
+  };
+  u.onend=resetReadButton;
+  u.onerror=resetReadButton;
+  window.speechSynthesis.speak(u);
 });
 transcriptBtn.addEventListener('click',()=>{transcriptContent.innerHTML=currentTranscript.map(t=>`<p>${escapeHTML(cleanText(t))}</p>`).join('');transcriptDialog.showModal();});
 document.querySelectorAll('[data-close-dialog]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
