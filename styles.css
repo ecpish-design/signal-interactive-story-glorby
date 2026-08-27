@@ -65,7 +65,7 @@ button{cursor:pointer}
 @media(max-width:900px){.copy-zone:after{display:none}.scene-wrap:not(.full)::before{opacity:.22}}
 
 /* =========================================================
-   SIGNAL MISSION EDIT BRANCH — approved interaction updates
+   SIGNAL MISSION EDIT BRANCH  -  approved interaction updates
    ========================================================= */
 
 .choice-card.tried,
@@ -145,7 +145,7 @@ button{cursor:pointer}
 
 
 /* =========================================================
-   FINAL EDIT — accessibility, responsive fit + adult panel
+   FINAL EDIT  -  accessibility, responsive fit + adult panel
    ========================================================= */
 :root{
   --interaction:#eaf4ff;

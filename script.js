@@ -381,7 +381,7 @@ function renderChoice(choice){
       } else {
         b.classList.remove('incorrect');
         b.classList.add('tried');
-        b.textContent=`${opt.label} — TRIED`;
+        b.textContent=`${opt.label}  -  TRIED`;
         b.disabled=true;
         feedback.className='feedback retry';
         feedback.textContent=opt.feedback;
@@ -405,7 +405,7 @@ function renderMultiChoice(cfg){
     b.addEventListener('click',()=>{
       if(!opt.correct){
         b.classList.add('tried');
-        b.textContent=`${opt.label} — TRIED`;
+        b.textContent=`${opt.label}  -  TRIED`;
         b.disabled=true;
         feedback.textContent=opt.feedback||'That one is not a warning sign. Look again at what changed.';
         feedback.className='feedback retry';
@@ -534,12 +534,12 @@ function placeEmotion(word,zone){
     state.sortDone.add(word);
     state.selectedEmotion=null;
     sfxConfirm();
-    f.textContent=`YES. ${word.toUpperCase()} FITS ${signalMeta[zone].label.toUpperCase()} — ${signalMeta[zone].short}`;
+    f.textContent=`YES. ${word.toUpperCase()} FITS ${signalMeta[zone].label.toUpperCase()}  -  ${signalMeta[zone].short}`;
     refreshSort();
   } else {
     const correctZone=item[1];
     sfxRetry();
-    f.textContent=`NOT QUITE. ${word.toUpperCase()} FITS ${signalMeta[correctZone].label.toUpperCase()} — ${signalMeta[correctZone].short}`;
+    f.textContent=`NOT QUITE. ${word.toUpperCase()} FITS ${signalMeta[correctZone].label.toUpperCase()}  -  ${signalMeta[correctZone].short}`;
   }
 }
 function refreshSort(){
@@ -584,7 +584,7 @@ function renderStrategies(){
       <div class="strategy-options">
         ${Object.keys(signalMeta).map(k=>`<button type="button" class="signal-choice ${k}" data-k="${k}" ${done?'disabled':''}>${signalMeta[k].label}</button>`).join('')}
       </div>
-      <div id="strategyFeedback" class="strategy-feedback" aria-live="polite">${done?`Yes. ${escapeHTML(text)} can help with ${signalMeta[cat].label} — ${signalMeta[cat].short}`:''}</div>
+      <div id="strategyFeedback" class="strategy-feedback" aria-live="polite">${done?`Yes. ${escapeHTML(text)} can help with ${signalMeta[cat].label}  -  ${signalMeta[cat].short}`:''}</div>
     </div>
 
     <div class="strategy-progress">
@@ -609,7 +609,7 @@ function renderStrategies(){
     } else {
       const wrongKey=b.dataset.k;
       b.classList.add('tried');
-      b.textContent=`${signalMeta[wrongKey].label} — TRIED`;
+      b.textContent=`${signalMeta[wrongKey].label}  -  TRIED`;
       b.disabled=true;
       feedback.textContent=`Not quite. ${signalMeta[wrongKey].label} means ${signalMeta[wrongKey].short.toLowerCase()} ${text} fits better with ${signalMeta[cat].label}, where ${signalMeta[cat].short.toLowerCase()}`;
       sfxRetry();
@@ -698,7 +698,7 @@ function renderReplay(){
         }
       } else {
         b.classList.add('tried');
-        b.textContent=`${label} — TRIED`;
+        b.textContent=`${label}  -  TRIED`;
         b.disabled=true;
         fb.className='feedback retry';
         fb.textContent=msg;
