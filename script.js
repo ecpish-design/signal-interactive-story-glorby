@@ -85,10 +85,10 @@ const scenes = [
       {t:'Before I blame the Gleborna aliens, which is still tempting, I need to work out what actually happened.',c:'glorb'},
       {t:'{{agent}}, the flight recorder survived. Help me reconstruct the day?',c:'system'}
     ],
-    choice:{prompt:'Choose Glorb’s next move.', options:[
-      {label:'RECONSTRUCT THE DAY',correct:true,feedback:'Good call. The recorder has six minutes of warnings to replay.'},
-      {label:'ORDER A NEW SHIP',feedback:'Tempting. But a fourth ship will not explain what happened to the third one.'},
-      {label:'BLAME THE ALIENS IMMEDIATELY',feedback:'Glorb would enjoy that option. The evidence would not.'}
+    choice:{prompt:'WHAT SHOULD GLORB CHECK FIRST?', options:[
+      {label:'TRAVEL BACK TO THE START OF THE DAY',correct:true,feedback:'Yes. Going back to the start of the day can show what happened before the crash.'},
+      {label:'THE BROKEN WING',feedback:'The broken wing shows us what happened during the crash, but not what happened before it. Try something that takes us back earlier.'},
+      {label:'THE SNACK CUPBOARD',feedback:'Important research, obviously. But snacks cannot show us what happened before the crash. Try something that takes us back to the beginning.'}
     ]}
   },
   {
@@ -120,13 +120,12 @@ const scenes = [
       {t:'The Gleborna aliens.',c:'glorb'},
       {t:'They made fun of my ears.',c:'glorb'},
       {t:'I asked them to stop.',c:'glorb'},
-      {t:'They did not stop.',c:'glorb'},
-      {t:'So what did I do next?',c:'system'}
+      {t:'They did not stop.',c:'glorb'}
     ],
-    choice:{prompt:'Reconstruct the next event from Glorb’s log.', options:[
-      {label:'CHASED THEM',correct:true,feedback:'Correct. That is what the recorder shows. Not saying it was a great plan.'},
-      {label:'FLEW HOME',feedback:'That would have changed the story. Glorb did not fly home.'},
-      {label:'CALLED AMY IN AR',feedback:'Amy would probably have preferred this. Glorb chose something else.'}
+    choice:{prompt:'HOW DO YOU THINK GLORB FELT IN THIS MOMENT?', options:[
+      {label:'ANNOYED / FRUSTRATED',correct:true,feedback:'Yes. Glorb was getting annoyed and frustrated because they kept going after he asked them to stop.'},
+      {label:'CALM',feedback:'Not quite. They kept making fun of Glorb after he asked them to stop. Look for a feeling that shows something was starting to build.'},
+      {label:'TIRED',feedback:'Glorb was tired earlier in the day, but this moment is different. Think about how he might feel when someone keeps doing something he has asked them to stop.'}
     ]}
   },
   {
@@ -138,11 +137,11 @@ const scenes = [
       {t:'I noticed both of them.',c:'glorb'},
       {t:'And I kept going.',c:'glorb'}
     ],
-    multiChoice:{prompt:'Before the crash, what TWO warnings had Glorb already noticed?', required:2, options:[
-      {label:'HIS EARS / BODY FELT DIFFERENT',correct:true},
+    multiChoice:{prompt:'GLORB NOTICED TWO WARNING SIGNS. WHICH TWO WERE THEY?', required:2, options:[
+      {label:'HIS BODY FELT DIFFERENT',correct:true},
       {label:'THE DASHBOARD FLASHED',correct:true},
-      {label:'THE MUSIC STOPPED',correct:false}
-    ], feedback:'Exactly. The warning was on the ship and in Glorb’s body.'}
+      {label:'THE MUSIC WAS PLAYING',correct:false,feedback:'The music was part of the journey, but it was not a warning sign. Look again at what changed in Glorb’s body and on the ship.'}
+    ], feedback:'Yes. Glorb noticed one warning in his body and one on the dashboard.'}
   },
   {
     id:'push', label:'LOG // 08:20', eyebrow:'ENGINE LOAD // INCREASING', title:'PUSH. PUSH. PUSH.', image:'crash-sequence', imageClass:'large', effect:'warn',
@@ -181,13 +180,24 @@ const scenes = [
   },
   { id:'learn', type:'learn', label:'RESEARCH // SIGNAL MANUAL' },
   {
-    id:'letter', label:'TRANSMISSION // AR', eyebrow:'DEPARTMENT OF AR // ALIEN RESOURCES', title:'FIELD RESEARCH: EARTH', image:'letter-amy', imageClass:'large',
+    id:'letter', label:'TRANSMISSION // AR', eyebrow:'DEPARTMENT OF AR // ALIEN RESOURCES', title:'FIELD RESEARCH: EARTH',
     lines:[
-      {t:'Dear Amy, please find my incident report attached.',c:'glorb'},
-      {t:'I have booked a small holiday home on Earth for some R + R.',c:'glorb'},
-      {t:'Research + Reporting.',c:'system'},
-      {t:'My ship is currently unavailable. Mostly because it exploded.',c:'glorb'},
-      {t:'P.S. I am aware this is my third ship.',c:'glorb'}
+      {t:'I had to explain to headquarters why my ship was broken.',c:'glorb'},
+      {t:'Again.',c:'glorb big'},
+      {t:'I decided Earth might be a safer place to continue my research.',c:'glorb'},
+      {t:'So I wrote to Amy in AR and told her the plan.',c:'glorb'}
+    ], auto:true
+  },
+  {
+    id:'letter-image', type:'artifact', label:'TRANSMISSION // AR', eyebrow:'DEPARTMENT OF AR // ALIEN RESOURCES', title:'LETTER TO AMY', image:'letter-amy'
+  },
+  {
+    id:'school-intro', label:'EARTH LOG // ARRIVAL', eyebrow:'EARTH FIELD RESEARCH', title:'ON EARTH',
+    lines:[
+      {t:'I found a place called a “school.”',c:'glorb'},
+      {t:'I decided it was the perfect place to study humans.',c:'glorb'},
+      {t:'Apparently, it is a place where humans go to study.',c:'glorb'},
+      {t:'This seemed efficient.',c:'glorb'}
     ], auto:true
   },
   {
@@ -215,11 +225,10 @@ const scenes = [
       {t:'His face tightened. His body got tense. He looked like he wanted space.',c:'system'},
       {t:'I was still dancing.',c:'glorb'}
     ],
-    choice:{prompt:'Now that Glorb knows his signal system: which ship pattern does Tommy’s change look most like?', options:[
-      {label:'LOW SIGNAL',feedback:'Tommy is not dropping in energy here. Look at the tension building.'},
-      {label:'STEADY SIGNAL',feedback:'Tommy is no longer steady. Something is building.'},
-      {label:'RISING SIGNAL',correct:true,feedback:'Yes. Tommy is showing early signs that his signal is rising.'},
-      {label:'SIGNAL OVERLOAD',feedback:'Not yet. This is why noticing the rising stage matters.'}
+    choice:{prompt:'WHAT DOES TOMMY LOOK LIKE HE IS FEELING?', options:[
+      {label:'HAPPY',feedback:'Not quite. A happy body might look more relaxed, open or smiley. Tommy’s face is tighter and his body looks tense.'},
+      {label:'ANNOYED',correct:true,feedback:'Yes. Tommy looks annoyed. His face tightened, his body got tense, and he looked like he wanted space.'},
+      {label:'SAD',feedback:'Not quite. A sad body might look flatter, droopier or lower in energy. Tommy looks tense and uncomfortable, like he wants Glorb to stop.'}
     ]}
   },
   {
@@ -237,7 +246,9 @@ const scenes = [
       {t:'Tommy pushed me away.',c:'system'},
       {t:'“STOP!”',c:'big red'},
       {t:'Tommy later apologised for pushing me.',c:'glorb'},
-      {t:'But someone pointed out that I had ignored his signals for a while before it got to that point.',c:'glorb'}
+      {t:'Pushing was not okay.',c:'glorb'},
+      {t:'I also realised I had missed the signs that Tommy wanted me to stop and give him space.',c:'glorb'},
+      {t:'Next time, I could notice those signs earlier and respond before things got bigger.',c:'glorb'}
     ], auto:true
   },
   {
@@ -268,11 +279,18 @@ const scenes = [
 ];
 
 const sortItems = [
-  ['sad','low'],['embarrassed','low'],['lonely','low'],['bored','low'],['tired','low'],['unsure','low'],
-  ['calm','steady'],['focused','steady'],['proud','steady'],['content','steady'],
-  ['upset','rising'],['disrespected','rising'],['excited','rising'],['frustrated','rising'],['nervous','rising'],
-  ['furious','overload'],['panicked','overload'],['terrified','overload'],['overwhelmed','overload']
+  ['tired','low'],
+  ['calm','steady'],
+  ['frustrated','rising'],
+  ['overwhelmed','overload']
 ];
+
+const fullEmotionSets = {
+  low:['sad','embarrassed','lonely','bored','tired','unsure'],
+  steady:['calm','focused','proud','content'],
+  rising:['upset','disrespected','excited','frustrated','nervous'],
+  overload:['furious','panicked','terrified','overwhelmed']
+};
 const strategies = [
   ['Rest for a few minutes','low'],['Get a drink or snack','low'],
   ['Keep doing what is working','steady'],['Take on a challenge if you are ready','steady'],
@@ -293,15 +311,16 @@ function lineHTML(line,index){
 function standardScene(scene){
   currentTranscript = [resolveText(scene.title), ...(scene.lines||[]).map(l=>resolveText(l.t))];
   sceneEl.className = `scene ${scene.effect==='crash'?'flash-white':''}`;
+  const hasImage=Boolean(scene.image);
   sceneEl.innerHTML = `
-    <section class="scene-wrap ${scene.effect==='warn'?'shake':''}">
+    <section class="scene-wrap ${scene.effect==='warn'?'shake':''} ${hasImage?'':'text-only'}">
       <div class="copy-zone">
         <div class="eyebrow">${escapeHTML(scene.eyebrow||'')}</div>
         <h1 class="scene-title ${scene.title.length>20?'small':''}">${escapeHTML(resolveText(scene.title))}</h1>
         <div class="story-lines">${scene.lines.map(lineHTML).join('')}</div>
         <div id="promptMount"></div>
       </div>
-      <div class="art-zone"><img class="art-img ${scene.imageClass||''}" src="${A(scene.image)}" alt="${escapeHTML(scene.title)} illustration"></div>
+      ${hasImage?`<div class="art-zone"><img class="art-img ${scene.imageClass||''}" src="${A(scene.image)}" alt="${escapeHTML(scene.title)} illustration"></div>`:''}
     </section>`;
   if(scene.choice) renderChoice(scene.choice);
   else if(scene.multiChoice) renderMultiChoice(scene.multiChoice);
@@ -346,9 +365,25 @@ function renderChoice(choice){
   choice.options.forEach(opt=>{
     const b=document.createElement('button'); b.type='button'; b.className='choice-card'; b.textContent=opt.label;
     b.addEventListener('click',()=>{
-      grid.querySelectorAll('.choice-card').forEach(x=>x.classList.remove('correct','incorrect'));
-      if(opt.correct){ b.classList.add('correct'); feedback.className='feedback good'; feedback.textContent=opt.feedback+(choice.canonical?` ${choice.canonical}`:''); feedback.hidden=false; sfxConfirm(); unlock(true); }
-      else { b.classList.add('incorrect'); feedback.className='feedback retry'; feedback.textContent=opt.feedback; feedback.hidden=false; sfxRetry(); unlock(false); }
+      if(opt.correct){
+        grid.querySelectorAll('.choice-card').forEach(x=>x.classList.remove('correct'));
+        b.classList.add('correct');
+        feedback.className='feedback good';
+        feedback.textContent=opt.feedback+(choice.canonical?` ${choice.canonical}`:'');
+        feedback.hidden=false;
+        sfxConfirm();
+        unlock(true);
+      } else {
+        b.classList.remove('incorrect');
+        b.classList.add('tried');
+        b.textContent=`${opt.label} — TRIED`;
+        b.disabled=true;
+        feedback.className='feedback retry';
+        feedback.textContent=opt.feedback;
+        feedback.hidden=false;
+        sfxRetry();
+        unlock(false);
+      }
     });
     grid.appendChild(b);
   });
@@ -363,15 +398,49 @@ function renderMultiChoice(cfg){
   cfg.options.forEach((opt,i)=>{
     const b=document.createElement('button'); b.type='button'; b.className='choice-card'; b.textContent=opt.label;
     b.addEventListener('click',()=>{
-      if(chosen.has(i)){chosen.delete(i); b.classList.remove('selected');} else if(chosen.size<cfg.required){chosen.add(i); b.classList.add('selected');}
+      if(!opt.correct){
+        b.classList.add('tried');
+        b.textContent=`${opt.label} — TRIED`;
+        b.disabled=true;
+        feedback.textContent=opt.feedback||'That one is not a warning sign. Look again at what changed.';
+        feedback.className='feedback retry';
+        feedback.hidden=false;
+        sfxRetry();
+        unlock(false);
+        return;
+      }
+      if(chosen.has(i)){
+        chosen.delete(i);
+        b.classList.remove('selected','correct');
+      } else if(chosen.size<cfg.required){
+        chosen.add(i);
+        b.classList.add('selected');
+      }
       if(chosen.size===cfg.required){
-        const ok=[...chosen].every(j=>cfg.options[j].correct);
-        if(ok){[...chosen].forEach(j=>grid.children[j].classList.add('correct')); feedback.textContent=cfg.feedback; feedback.className='feedback good';feedback.hidden=false;sfxConfirm();unlock(true);}
-        else{feedback.textContent='One of those does not appear in the flight log. Try again.';feedback.className='feedback retry';feedback.hidden=false;sfxRetry();setTimeout(()=>{chosen.clear();[...grid.children].forEach(x=>x.classList.remove('selected','incorrect'));},650);unlock(false);}
+        [...chosen].forEach(j=>grid.children[j].classList.add('correct'));
+        feedback.textContent=cfg.feedback;
+        feedback.className='feedback good';
+        feedback.hidden=false;
+        sfxConfirm();
+        unlock(true);
+      } else {
+        feedback.hidden=true;
+        setNav(true,false,`SELECT ${cfg.required-chosen.size} MORE WARNING${cfg.required-chosen.size===1?'':'S'}`);
       }
     }); grid.appendChild(b);
   });
   setNav(true,false,'SELECT TWO WARNINGS');
+}
+
+function renderArtifact(scene){
+  currentTranscript=[resolveText(scene.title),'Open the letter from Glorb to Amy in Alien Resources.'];
+  sceneEl.className='scene';
+  sceneEl.innerHTML=`<section class="scene-wrap full artifact-scene">
+    <div class="eyebrow">${escapeHTML(scene.eyebrow||'')}</div>
+    <h1 class="scene-title small">${escapeHTML(resolveText(scene.title))}</h1>
+    <div class="artifact-frame"><img src="${A(scene.image)}" alt="${escapeHTML(scene.title)}"></div>
+  </section>`;
+  unlock(true);
 }
 
 function renderGraph(){
@@ -421,13 +490,13 @@ function showSignal(k,btn){
 
 function shuffle(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(v=>v[1]); }
 function renderSort(){
-  currentTranscript=['Human Signal Lab','Sort human feelings into Low Signal, Steady Signal, Rising Signal and Signal Overload.'];
+  currentTranscript=['Human Signal Lab','Sort four example feelings into Low Signal, Steady Signal, Rising Signal and Signal Overload.'];
   sceneEl.className='scene';
   if(!state.sortOrder) state.sortOrder=shuffle(sortItems.slice());
   sceneEl.innerHTML=`<section class="scene-wrap full">
     <div class="eyebrow">EARTH FIELD LAB // HUMAN SIGNALS</div>
     <h1 class="scene-title small">HUMANS WEAR THEIR SIGNALS ON THE OUTSIDE</h1>
-    <p style="font-size:19px;max-width:1000px;line-height:1.5">Use Glorb’s ship system to sort the human feelings. Drag a card, or select a card and then select a signal zone.</p>
+    <p style="font-size:19px;max-width:1000px;line-height:1.5">Sort four example feelings into Glorb’s signal zones. When all four are matched, the full Human Signal Guide will appear.</p>
     <div class="sort-layout">
       <aside class="card-bank"><div class="bank-title">UNSORTED HUMAN SIGNALS // <span id="sortCount"></span></div><div id="emotionBank" class="emotion-bank"></div><div id="sortFeedback" class="sort-status">SELECT A CARD</div></aside>
       <div id="dropGrid" class="drop-grid">
@@ -461,11 +530,14 @@ function placeEmotion(word,zone){
 }
 function refreshSort(){
   document.querySelectorAll('.emotion-card').forEach(b=>b.classList.toggle('done',state.sortDone.has(b.dataset.word)));
+  const complete=state.sortDone.size===sortItems.length;
   Object.keys(signalMeta).forEach(k=>{
-    const list=document.getElementById(`placed-${k}`); if(!list)return; list.innerHTML=sortItems.filter(([w,c])=>c===k&&state.sortDone.has(w)).map(([w])=>`<span class="placed-pill">${escapeHTML(w)}</span>`).join('');
+    const list=document.getElementById(`placed-${k}`); if(!list)return;
+    const words=complete ? fullEmotionSets[k] : sortItems.filter(([w,c])=>c===k&&state.sortDone.has(w)).map(([w])=>w);
+    list.innerHTML=words.map(w=>`<span class="placed-pill">${escapeHTML(w)}</span>`).join('');
   });
   document.getElementById('sortCount').textContent=`${state.sortDone.size}/${sortItems.length}`;
-  if(state.sortDone.size===sortItems.length){
+  if(complete){
     const strip={low:'low-strip',steady:'steady-strip',rising:'rising-strip',overload:'overload-strip'};
     Object.keys(strip).forEach(k=>document.getElementById(`reveal-${k}`).innerHTML=`<img class="reveal-strip" src="${A(strip[k])}" alt="Completed ${signalMeta[k].label} human signal guide">`);
     document.getElementById('sortFeedback').textContent='HUMAN SIGNAL GUIDE COMPLETE.'; unlock(true); sfxConfirm();
@@ -509,14 +581,31 @@ function renderReplay(){
     <div class="art-zone"><img class="art-img large" src="${A('tommy-angry')}" alt="Tommy becoming angry while Glorb dances nearby"></div>
   </section>`;
   const opts=[
-    ['STOP, STEP BACK + GIVE SPACE',true,'You noticed the rising signal and reduced the pressure.'],
-    ['ASK: “DO YOU WANT SOME SPACE?”',true,'Good. Glorb notices the signal and checks what Tommy needs.'],
     ['KEEP DANCING UNTIL HE LAUGHS',false,'That adds more pressure when Tommy is already showing he wants space.'],
-    ['GET CLOSER SO HE CAN HEAR',false,'Closer is the opposite of the space Tommy is signalling for.']
+    ['STOP, STEP BACK + GIVE SPACE',true,'You noticed the rising signal and reduced the pressure.'],
+    ['GET CLOSER SO HE CAN HEAR',false,'Closer is the opposite of the space Tommy is signalling for.'],
+    ['ASK: “DO YOU WANT SOME SPACE?”',true,'Good. Glorb notices the signal and checks what Tommy needs.']
   ];
   const grid=document.getElementById('replayChoices'),fb=document.getElementById('replayFeedback');
   opts.forEach(([label,good,msg])=>{const b=document.createElement('button');b.type='button';b.className='choice-card';b.textContent=label;b.addEventListener('click',()=>{
-    if(good){b.classList.add('correct');fb.className='feedback good';fb.textContent=msg;fb.hidden=false;state.replayChoiceMade=true;sfxConfirm();unlock(true);} else{b.classList.add('incorrect');fb.className='feedback retry';fb.textContent=msg;fb.hidden=false;sfxRetry();unlock(false);setTimeout(()=>b.classList.remove('incorrect'),650);}
+    if(good){
+      b.classList.add('correct');
+      fb.className='feedback good';
+      fb.textContent=msg;
+      fb.hidden=false;
+      state.replayChoiceMade=true;
+      sfxConfirm();
+      unlock(true);
+    } else {
+      b.classList.add('tried');
+      b.textContent=`${label} — TRIED`;
+      b.disabled=true;
+      fb.className='feedback retry';
+      fb.textContent=msg;
+      fb.hidden=false;
+      sfxRetry();
+      unlock(false);
+    }
   });grid.appendChild(b)});
   unlock(state.replayChoiceMade);
 }
@@ -568,6 +657,7 @@ function renderScene(){
   if(scene.type==='start')renderStart();
   else if(scene.type==='graph')renderGraph();
   else if(scene.type==='learn')renderLearn();
+  else if(scene.type==='artifact')renderArtifact(scene);
   else if(scene.type==='sort')renderSort();
   else if(scene.type==='strategies')renderStrategies();
   else if(scene.type==='replay')renderReplay();

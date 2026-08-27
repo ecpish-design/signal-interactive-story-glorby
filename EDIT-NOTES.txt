@@ -1,0 +1,24 @@
+GLORB // SIGNAL MISSION — EDIT BRANCH FILES
+
+Replace only these files on your `signal-mission-edits` branch:
+- script.js
+- styles.css
+
+index.html is included for convenience but is unchanged.
+
+DO NOT replace or re-upload the assets folder. All existing asset filenames are reused.
+
+Implemented:
+1. Easier WHAT HAPPENED? question.
+2. Wrong options become grey, disabled, and marked — TRIED.
+3. Compact no-scroll tablet/mobile styling.
+4. Gleborna question changed to how Glorb feels.
+5. Two-warning question simplified.
+6. Field Research setup no longer repeats the letter.
+7. Separate letter image screen.
+8. Text-only school transition screen added.
+9. Tommy question changed to HAPPY / ANNOYED / SAD with body-sign hints.
+10. Tommy push wording separates responsibility from Glorb's reflection.
+11. 19-emotion sort reduced to 4 practice emotions; full guide reveals afterward.
+12. Replay answers mixed; wrong answers become grey/TRIED.
+13. Certificate and all unmentioned scenes remain unchanged.
