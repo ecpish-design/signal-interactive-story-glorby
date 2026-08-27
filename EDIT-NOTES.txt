@@ -1,4 +1,4 @@
-GLORB // SIGNAL MISSION  -  EDIT BRANCH FILES
+GLORB // SIGNAL MISSION - EDIT BRANCH FILES
 
 Replace only these files on your `signal-mission-edits` branch:
 - script.js
@@ -10,7 +10,7 @@ DO NOT replace or re-upload the assets folder. All existing asset filenames are 
 
 Implemented:
 1. Easier WHAT HAPPENED? question.
-2. Wrong options become grey, disabled, and marked  -  TRIED.
+2. Wrong options become grey, disabled, and marked - TRIED.
 3. Compact no-scroll tablet/mobile styling.
 4. Gleborna question changed to how Glorb feels.
 5. Two-warning question simplified.
@@ -37,13 +37,13 @@ FINAL REQUESTED EDITS
 - Certificate revised with Signal names, strategies and de-escalation wording.
 - READ toggles to STOP READING while speech is active.
 
-V4  -  HINT LANGUAGE ONLY
+V4 - HINT LANGUAGE ONLY
 - Made all requested wrong-answer hints shorter and simpler.
 - Kept the same meaning and answer logic.
-- Shortened Signal sort feedback to: “[FEELING] fits [SIGNAL]  -  [short description].”
+- Shortened Signal sort feedback to: “[FEELING] fits [SIGNAL] - [short description].”
 - No other content or layout changes in this pass.
 
-V6  -  VERIFIED NAVIGATION VERSION
+V6 - VERIFIED NAVIGATION VERSION
 - Support activity is ONE support card per screen, not 8 cards at once.
 - Each support screen shows RESPONSE 01 OF 08, 02 OF 08, etc.
 - NEXT stays disabled until the current support is answered correctly.
@@ -71,7 +71,7 @@ VIEWPORT-FIT FIX
 - Added shorter-window desktop rules plus dedicated tablet/iPad and iPhone sizing.
 - No story structure, wording, learning sequence or interaction logic changed.
 
-V3  -  SCROLL + SPACING RESTORED
+V3 - SCROLL + SPACING RESTORED
 - Kept all approved content, interaction, adult-panel, font-size, hint, certificate and colour edits.
 - Removed the forced no-scroll viewport behaviour.
 - Restored normal vertical page scrolling.
@@ -79,8 +79,13 @@ V3  -  SCROLL + SPACING RESTORED
 - Removed compact spacing rules that were only added to force every activity into one viewport.
 - Returned the opening screen and activity layouts to normal document flow.
 
-V4  -  DEFINITIVE SCROLL FIX
+V4 - DEFINITIVE SCROLL FIX
 - Removed the old max-width 1100px and 699px one-screen/no-scroll CSS blocks completely.
 - Restored normal document scrolling on desktop, iPad and iPhone.
 - Restored the original responsive spacing rather than compressing every screen.
 - Kept all content edits, adult panel, larger fonts, light-blue interaction areas, specific hints, one-card support sequence, replay changes and certificate edits.
+
+V7 ALL CLUES FEEDBACK DASH AUDIT
+Checked all packaged files for em dashes, en dashes, HTML dash entities and JavaScript unicode dash escapes.
+All clue and feedback wording now uses full stops instead of em or en dashes.
+No em dash or en dash forms remain in this package.
