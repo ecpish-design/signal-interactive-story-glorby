@@ -23,9 +23,16 @@ Implemented:
 12. Replay answers mixed; wrong answers become grey/TRIED.
 13. Certificate and all unmentioned scenes remain unchanged.
 
-14. Follow-up: prompt now says WHAT SHOULD GLORB DO FIRST?
-15. READ button toggles to STOP READING while speech is active.
-16. Four-emotion sort now shows short Signal descriptions and uses Signal Manual wording in hints.
-17. Support activity simplified to Year 5 language: WHAT MIGHT HELP? / Which signal could this help with?
-18. Support Signal buttons are colour-coded.
-19. Wrong support choices become grey, disabled, and marked TRIED.
+FINAL REQUESTED EDITS
+- WHAT SHOULD GLORB DO FIRST?
+- Simplified all listed wrong-answer hints.
+- Amy wording changed to 'at the office'.
+- Signal sort has short zone descriptions and shorter hints.
+- Support activity changed to one support card per screen with progress and Back/Next.
+- Support choices are colour-coded; wrong choices become grey + TRIED + disabled.
+- Replay now says WHAT COULD GLORB DO NEXT? / Choose two answers and requires two correct choices.
+- Replay shows 0 OF 2 / 1 OF 2 / 2 OF 2 SELECTED.
+- 'You noticed Tommy needed space.' feedback.
+- Simpler GLORB final note.
+- Certificate revised with Signal names, strategies and de-escalation wording.
+- READ toggles to STOP READING while speech is active.

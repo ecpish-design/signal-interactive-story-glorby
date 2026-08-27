@@ -10,6 +10,8 @@ const state = {
   selectedEmotion: null,
   sortDone: new Set(),
   strategyDone: new Set(),
+  strategyIndex: 0,
+  replayChoices: new Set(),
   replayChoiceMade: false,
 };
 
@@ -87,8 +89,8 @@ const scenes = [
     ],
     choice:{prompt:'WHAT SHOULD GLORB DO FIRST?', options:[
       {label:'TRAVEL BACK TO THE START OF THE DAY',correct:true,feedback:'Yes. Going back to the start of the day can show what happened before the crash.'},
-      {label:'THE BROKEN WING',feedback:'The broken wing shows us what happened during the crash, but not what happened before it. Try something that takes us back earlier.'},
-      {label:'THE SNACK CUPBOARD',feedback:'Important research, obviously. But snacks cannot show us what happened before the crash. Try something that takes us back to the beginning.'}
+      {label:'THE BROKEN WING',feedback:'The broken wing shows us the crash, not what happened before. Try something that can take us back.'},
+      {label:'THE SNACK CUPBOARD',feedback:'Snacks won’t tell us what happened before the crash. Try something that can take us back to the start.'}
     ]}
   },
   {
@@ -124,8 +126,8 @@ const scenes = [
     ],
     choice:{prompt:'HOW DO YOU THINK GLORB FELT IN THIS MOMENT?', options:[
       {label:'ANNOYED / FRUSTRATED',correct:true,feedback:'Yes. Glorb was getting annoyed and frustrated because they kept going after he asked them to stop.'},
-      {label:'CALM',feedback:'Not quite. They kept making fun of Glorb after he asked them to stop. Look for a feeling that shows something was starting to build.'},
-      {label:'TIRED',feedback:'Glorb was tired earlier in the day, but this moment is different. Think about how he might feel when someone keeps doing something he has asked them to stop.'}
+      {label:'CALM',feedback:'Not quite. They kept making fun of Glorb after he asked them to stop. Which feeling fits better when someone is getting more upset?'},
+      {label:'TIRED',feedback:'Glorb was tired earlier. Right now, they kept doing something after he asked them to stop. How might that make him feel?'}
     ]}
   },
   {
@@ -140,7 +142,7 @@ const scenes = [
     multiChoice:{prompt:'GLORB NOTICED TWO WARNING SIGNS. WHICH TWO WERE THEY?', required:2, options:[
       {label:'HIS BODY FELT DIFFERENT',correct:true},
       {label:'THE DASHBOARD FLASHED',correct:true},
-      {label:'THE MUSIC WAS PLAYING',correct:false,feedback:'The music was part of the journey, but it was not a warning sign. Look again at what changed in Glorb’s body and on the ship.'}
+      {label:'THE MUSIC WAS PLAYING',correct:false,feedback:'The music was not a warning sign. Look for one change in Glorb’s body and one change on the ship.'}
     ], feedback:'Yes. Glorb noticed one warning in his body and one on the dashboard.'}
   },
   {
@@ -185,7 +187,7 @@ const scenes = [
       {t:'I had to explain to headquarters why my ship was broken.',c:'glorb'},
       {t:'Again.',c:'glorb big'},
       {t:'I decided Earth might be a safer place to continue my research.',c:'glorb'},
-      {t:'So I wrote to Amy in AR and told her the plan.',c:'glorb'}
+      {t:'So I wrote to Amy at the office and told her the plan.',c:'glorb'}
     ], auto:true
   },
   {
@@ -226,9 +228,9 @@ const scenes = [
       {t:'I was still dancing.',c:'glorb'}
     ],
     choice:{prompt:'WHAT DOES TOMMY LOOK LIKE HE IS FEELING?', options:[
-      {label:'HAPPY',feedback:'Not quite. A happy body might look more relaxed, open or smiley. Tommy’s face is tighter and his body looks tense.'},
+      {label:'HAPPY',feedback:'Not quite. Happy might look relaxed or smiley. Tommy looks tense.'},
       {label:'ANNOYED',correct:true,feedback:'Yes. Tommy looks annoyed. His face tightened, his body got tense, and he looked like he wanted space.'},
-      {label:'SAD',feedback:'Not quite. A sad body might look flatter, droopier or lower in energy. Tommy looks tense and uncomfortable, like he wants Glorb to stop.'}
+      {label:'SAD',feedback:'Not quite. Sad might look low or droopy. Tommy looks tense and wants space.'}
     ]}
   },
   {
@@ -236,7 +238,7 @@ const scenes = [
     lines:[{t:'If I had noticed the change right here, I could have responded differently.',c:'glorb'}],
     choice:{prompt:'What would give Tommy’s signal the best chance to settle?', options:[
       {label:'STOP + GIVE HIM SPACE',correct:true,feedback:'Yes. Notice the signal, reduce the pressure, give space.'},
-      {label:'DANCE CLOSER SO HE LAUGHS',feedback:'That adds more pressure when Tommy is already showing he wants space.'},
+      {label:'DANCE CLOSER SO HE LAUGHS',feedback:'That could make things harder. Tommy is showing that he wants space.'},
       {label:'SHOUT THE JOKE LOUDER',feedback:'Louder does not make the warning smaller.'}
     ], canonical:'Good choice. Unfortunately, this is not what Glorb did in the original incident.'}
   },
@@ -534,7 +536,7 @@ function placeEmotion(word,zone){
   } else {
     const correctZone=item[1];
     sfxRetry();
-    f.textContent=`NOT QUITE. ${signalMeta[zone].label.toUpperCase()} MEANS: ${signalMeta[zone].desc} ${word.toUpperCase()} FITS BETTER WITH ${signalMeta[correctZone].label.toUpperCase()}: ${signalMeta[correctZone].short}`;
+    f.textContent=`NOT QUITE. ${word.toUpperCase()} FITS ${signalMeta[correctZone].label.toUpperCase()}, WHERE ${signalMeta[correctZone].short.toLowerCase()}`;
   }
 }
 function refreshSort(){
@@ -554,85 +556,159 @@ function refreshSort(){
 }
 
 function renderStrategies(){
-  currentTranscript=['What might help?','Which signal could this help with?','Different things help different people. These are just examples.'];
+  const i=Math.max(0,Math.min(strategies.length-1,state.strategyIndex||0));
+  const [text,cat]=strategies[i];
+  const done=state.strategyDone.has(i);
+
+  currentTranscript=[
+    'What might help?',
+    'Which signal could this help with?',
+    'Different things help different people. These are just examples.',
+    `Response ${i+1} of ${strategies.length}.`,
+    text
+  ];
+
   sceneEl.className='scene';
-  sceneEl.innerHTML=`<section class="scene-wrap full">
+  sceneEl.innerHTML=`<section class="scene-wrap full strategy-single">
     <div class="eyebrow">EARTH FIELD LAB // RESPONSE OPTIONS</div>
     <h1 class="scene-title small">WHAT MIGHT HELP?</h1>
-    <p style="font-size:19px;max-width:950px;line-height:1.5"><strong>Which signal could this help with?</strong><br>Different things help different people. These are just examples.</p>
-    <div id="strategyBoard" class="strategy-board"></div>
-    <div id="strategyStatus" class="sort-status"></div>
-  </section>`;
-  const board=document.getElementById('strategyBoard');
-  strategies.forEach(([text,cat],i)=>{
-    const done=state.strategyDone.has(i);
-    const card=document.createElement('div');
-    card.className='strategy-card';
-    card.innerHTML=`<div class="eyebrow">RESPONSE ${String(i+1).padStart(2,'0')}</div><h3>${escapeHTML(text)}</h3><div class="strategy-prompt">Which signal could this help with?</div><div class="strategy-options">${Object.keys(signalMeta).map(k=>`<button type="button" class="signal-choice ${k}" data-k="${k}" ${done?'disabled':''}>${signalMeta[k].label}</button>`).join('')}</div>`;
-    card.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
-      if(b.dataset.k===cat){
-        state.strategyDone.add(i);
-        b.classList.add('good');
-        card.querySelectorAll('button').forEach(x=>x.disabled=true);
-        sfxConfirm();
-        refreshStrategies();
-      } else {
-        b.classList.remove('bad');
-        b.classList.add('tried');
-        b.textContent=`${signalMeta[b.dataset.k].label} — TRIED`;
-        b.disabled=true;
-        sfxRetry();
-      }
-    }));
-    board.appendChild(card);
-  });
-  refreshStrategies();
-}
-function refreshStrategies(){
-  const s=document.getElementById('strategyStatus');if(!s)return;s.textContent=`MATCHED ${state.strategyDone.size}/${strategies.length}`;
-  if(state.strategyDone.size===strategies.length){s.textContent='RESPONSE GUIDE COMPLETE // READY TO REPLAY INCIDENT';unlock(true);sfxConfirm();} else unlock(false,`MATCHED ${state.strategyDone.size}/${strategies.length}`);
-}
+    <p class="strategy-intro"><strong>Which signal could this help with?</strong><br>Different things help different people. These are just examples.</p>
 
+    <div class="strategy-step">RESPONSE ${String(i+1).padStart(2,'0')} OF ${String(strategies.length).padStart(2,'0')}</div>
+
+    <div class="strategy-card strategy-card-single">
+      <h3>${escapeHTML(text)}</h3>
+      <div class="strategy-options">
+        ${Object.keys(signalMeta).map(k=>`<button type="button" class="signal-choice ${k}" data-k="${k}" ${done?'disabled':''}>${signalMeta[k].label}</button>`).join('')}
+      </div>
+      <div id="strategyFeedback" class="strategy-feedback" aria-live="polite">${done?`YES. ${escapeHTML(text)} CAN HELP WITH ${signalMeta[cat].label.toUpperCase()}.`:''}</div>
+    </div>
+
+    <div class="strategy-progress">
+      <div class="strategy-dots" aria-hidden="true">${strategies.map((_,idx)=>`<span class="${state.strategyDone.has(idx)?'done':''}"></span>`).join('')}</div>
+      <div class="sort-status">MATCHED ${state.strategyDone.size} / ${strategies.length}</div>
+    </div>
+
+    <div class="strategy-nav">
+      <button type="button" id="strategyPrev" class="nav-btn ghost" ${i===0?'disabled':''}>← BACK</button>
+      <button type="button" id="strategyNext" class="nav-btn primary" ${done?'':'disabled'}>${i===strategies.length-1?'FINISH':'NEXT →'}</button>
+    </div>
+  </section>`;
+
+  const feedback=document.getElementById('strategyFeedback');
+
+  sceneEl.querySelectorAll('.strategy-options button').forEach(b=>b.addEventListener('click',()=>{
+    if(state.strategyDone.has(i) || b.disabled)return;
+    if(b.dataset.k===cat){
+      state.strategyDone.add(i);
+      sfxConfirm();
+      renderStrategies();
+    } else {
+      b.classList.add('tried');
+      b.textContent=`${signalMeta[b.dataset.k].label} — TRIED`;
+      b.disabled=true;
+      feedback.textContent='NOT QUITE. TRY ANOTHER SIGNAL.';
+      sfxRetry();
+    }
+  }));
+
+  document.getElementById('strategyPrev').addEventListener('click',()=>{
+    state.strategyIndex=Math.max(0,i-1);
+    renderStrategies();
+  });
+
+  document.getElementById('strategyNext').addEventListener('click',()=>{
+    if(!state.strategyDone.has(i))return;
+    if(i<strategies.length-1){
+      state.strategyIndex=i+1;
+      renderStrategies();
+    }else{
+      goTo(state.index+1);
+    }
+  });
+
+  unlock(false,done ? (i===strategies.length-1?'FINISH THIS ACTIVITY':'NEXT RESPONSE') : 'CHOOSE A SIGNAL');
+}
 function renderReplay(){
-  currentTranscript=['Replay the Tommy incident.','Tommy’s face tightens and his body becomes tense.','Choose what Glorb should do while the signal is still rising.'];
+  currentTranscript=[
+    'Replay the moment before it got bigger.',
+    'Tommy’s face tightens.',
+    'His body gets tense.',
+    'I know what that means now. His signal is rising.',
+    'What could Glorb do next?',
+    'Choose two answers.'
+  ];
   sceneEl.className='scene';
   sceneEl.innerHTML=`<section class="scene-wrap">
-    <div class="copy-zone"><div class="eyebrow">SIMULATION // 12:37 // PAUSED</div><h1 class="scene-title small">REPLAY THE MOMENT BEFORE IT GOT BIGGER</h1>
+    <div class="copy-zone"><div class="eyebrow">SIMULATION</div><h1 class="scene-title small">REPLAY THE MOMENT BEFORE IT GOT BIGGER</h1>
       <div class="story-lines"><p class="story-line system" style="animation-delay:.1s">Tommy’s face tightens.</p><p class="story-line system" style="animation-delay:.25s">His body gets tense.</p><p class="story-line glorb" style="animation-delay:.4s">I know what that means now. His signal is rising.</p></div>
-      <div class="prompt-box"><div class="prompt-title">Choose Glorb’s response.</div><div class="choice-grid" id="replayChoices"></div><div class="feedback" id="replayFeedback" hidden></div></div>
+      <div class="prompt-box">
+        <div class="prompt-title">WHAT COULD GLORB DO NEXT?</div>
+        <div class="prompt-helper">Choose two answers.</div>
+        <div class="choice-grid" id="replayChoices"></div>
+        <div id="replayCount" class="replay-count">${state.replayChoices.size} OF 2 SELECTED</div>
+        <div class="feedback" id="replayFeedback" hidden></div>
+      </div>
     </div>
     <div class="art-zone"><img class="art-img large" src="${A('tommy-angry')}" alt="Tommy becoming angry while Glorb dances nearby"></div>
   </section>`;
+
   const opts=[
-    ['KEEP DANCING UNTIL HE LAUGHS',false,'That adds more pressure when Tommy is already showing he wants space.'],
-    ['STOP, STEP BACK + GIVE SPACE',true,'You noticed the rising signal and reduced the pressure.'],
-    ['GET CLOSER SO HE CAN HEAR',false,'Closer is the opposite of the space Tommy is signalling for.'],
+    ['KEEP DANCING UNTIL HE LAUGHS',false,'That could make things harder. Tommy is showing that he wants space.'],
+    ['STOP, STEP BACK + GIVE SPACE',true,'You noticed Tommy needed space.'],
+    ['GET CLOSER SO HE CAN HEAR',false,'Tommy is showing that he wants space. Getting closer does not give him space.'],
     ['ASK: “DO YOU WANT SOME SPACE?”',true,'Good. Glorb notices the signal and checks what Tommy needs.']
   ];
-  const grid=document.getElementById('replayChoices'),fb=document.getElementById('replayFeedback');
-  opts.forEach(([label,good,msg])=>{const b=document.createElement('button');b.type='button';b.className='choice-card';b.textContent=label;b.addEventListener('click',()=>{
-    if(good){
-      b.classList.add('correct');
-      fb.className='feedback good';
-      fb.textContent=msg;
-      fb.hidden=false;
-      state.replayChoiceMade=true;
-      sfxConfirm();
-      unlock(true);
-    } else {
-      b.classList.add('tried');
-      b.textContent=`${label} — TRIED`;
-      b.disabled=true;
-      fb.className='feedback retry';
-      fb.textContent=msg;
-      fb.hidden=false;
-      sfxRetry();
-      unlock(false);
-    }
-  });grid.appendChild(b)});
-  unlock(state.replayChoiceMade);
-}
 
+  const grid=document.getElementById('replayChoices');
+  const fb=document.getElementById('replayFeedback');
+  const count=document.getElementById('replayCount');
+
+  opts.forEach(([label,good,msg],idx)=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='choice-card';
+    b.textContent=label;
+
+    if(state.replayChoices.has(idx)){
+      b.classList.add('correct');
+      b.disabled=true;
+    }
+
+    b.addEventListener('click',()=>{
+      if(good){
+        state.replayChoices.add(idx);
+        b.classList.add('correct');
+        b.disabled=true;
+        fb.className='feedback good';
+        fb.textContent=msg;
+        fb.hidden=false;
+        count.textContent=`${state.replayChoices.size} OF 2 SELECTED`;
+        sfxConfirm();
+
+        if(state.replayChoices.size===2){
+          state.replayChoiceMade=true;
+          unlock(true);
+        }else{
+          unlock(false,'CHOOSE 1 MORE ANSWER');
+        }
+      } else {
+        b.classList.add('tried');
+        b.textContent=`${label} — TRIED`;
+        b.disabled=true;
+        fb.className='feedback retry';
+        fb.textContent=msg;
+        fb.hidden=false;
+        sfxRetry();
+        unlock(false,state.replayChoices.size===1?'CHOOSE 1 MORE ANSWER':'CHOOSE TWO ANSWERS');
+      }
+    });
+
+    grid.appendChild(b);
+  });
+
+  unlock(state.replayChoices.size===2, state.replayChoices.size===1?'CHOOSE 1 MORE ANSWER':'CHOOSE TWO ANSWERS');
+}
 function renderComplete(){
   currentTranscript=['Mission complete',`${agentName()} investigated Glorb’s crash, learned the four signals, connected ship signals to body signals, identified human signals and changed the outcome of the Tommy incident.`];
   sceneEl.className='scene';
@@ -642,7 +718,7 @@ function renderComplete(){
     <h1 class="scene-title">MISSION COMPLETE</h1>
     <p style="font-size:21px;line-height:1.55">${escapeHTML(agentName())}, Glorb has completed the Signal Manual and updated his Earth field notes.</p>
     <div class="complete-grid"><div class="complete-item">CRASH<br>INVESTIGATED ✓</div><div class="complete-item">SHIP + BODY<br>CONNECTED ✓</div><div class="complete-item">HUMAN SIGNALS<br>DECODED ✓</div><div class="complete-item">OUTCOME<br>CHANGED ✓</div></div>
-    <div class="hud-card" style="max-width:780px;margin:0 auto;text-align:left"><strong>GLORB // FINAL NOTE</strong><p style="font-size:18px;line-height:1.6;margin-bottom:0">“I thought the important part was knowing what to do after everything went wrong. Turns out the useful information was there much earlier. The ship showed it. My ears showed it. Tommy showed it too.”</p></div>
+    <div class="hud-card" style="max-width:780px;margin:0 auto;text-align:left"><strong>GLORB // FINAL NOTE</strong><p style="font-size:18px;line-height:1.6;margin-bottom:0">“I thought the important part was what to do after things went wrong. But the signs were there earlier. The ship showed me. My ears showed me. Tommy showed me too.”</p></div>
   </section>`;
   unlock(true,'OPEN YOUR CERTIFICATE');
 }
@@ -655,9 +731,16 @@ function renderCertificate(){
     <h1>CERTIFICATE<br>OF COMPLETION</h1>
     <p>This certifies that</p>
     <div class="cert-name">${escapeHTML(agentName())}</div>
-    <div class="cert-body"><p>has completed <strong>GLORB: THE SIGNAL MISSION: INCIDENT ESAU-32A</strong>.</p>
-    <p>During this mission, ${escapeHTML(agentName())} investigated Glorb’s ship crash, tracked how signals changed from Low to Steady to Rising to Overload, connected dashboard warnings to Glorb’s ears and body, recognised human emotions as outside signals, matched helpful responses and used the learning to change the outcome of a replayed Earth incident.</p>
-    <p><strong>${escapeHTML(agentName())} can now:</strong> notice changing signals, recognise when a person may need support or space, and choose a response before a situation gets bigger.</p></div>
+    <div class="cert-body"><p>has completed <strong>GLORB: THE SIGNAL MISSION.</strong></p>
+    <p>During the mission, <strong>${escapeHTML(agentName())}</strong> helped Glorb:</p>
+    <ul>
+      <li>notice <strong>Low, Steady, Rising and Overload Signals</strong> in emotions and behaviour</li>
+      <li>connect body clues with warning signs</li>
+      <li>notice emotions and body clues in other people</li>
+      <li>match different <strong>strategies</strong> to different Signal levels</li>
+      <li>choose a helpful response to <strong>support de-escalation</strong></li>
+    </ul>
+    <p><strong>${escapeHTML(agentName())} can now:</strong> notice changing signals, recognise when someone may need space or support, and choose a response that may help.</p></div>
     <div class="cert-stamp">MISSION STATUS // COMPLETE &nbsp;&nbsp; RESEARCH LOG // VERIFIED</div>
     <div class="cert-actions"><button class="nav-btn primary" id="printCert">PRINT / SAVE PDF</button><button class="nav-btn ghost" id="shareCert">SHARE RESULT</button><button class="nav-btn ghost" id="restartMission">RESTART MISSION</button></div>
   </section>`;
