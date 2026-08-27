@@ -89,8 +89,8 @@ const scenes = [
     ],
     choice:{prompt:'WHAT SHOULD GLORB DO FIRST?', options:[
       {label:'TRAVEL BACK TO THE START OF THE DAY',correct:true,feedback:'Yes. Going back to the start of the day can show what happened before the crash.'},
-      {label:'THE BROKEN WING',feedback:'The broken wing shows us the crash, not what happened before. Try something that can take us back.'},
-      {label:'THE SNACK CUPBOARD',feedback:'Snacks won’t tell us what happened before the crash. Try something that can take us back to the start.'}
+      {label:'THE BROKEN WING',feedback:'That shows the crash, not what happened before. Try going back.'},
+      {label:'THE SNACK CUPBOARD',feedback:'Snacks won’t tell us what happened. Try going back to the start.'}
     ]}
   },
   {
@@ -126,8 +126,8 @@ const scenes = [
     ],
     choice:{prompt:'HOW DO YOU THINK GLORB FELT IN THIS MOMENT?', options:[
       {label:'ANNOYED / FRUSTRATED',correct:true,feedback:'Yes. Glorb was getting annoyed and frustrated because they kept going after he asked them to stop.'},
-      {label:'CALM',feedback:'Not quite. They kept making fun of Glorb after he asked them to stop. Which feeling fits better when someone is getting more upset?'},
-      {label:'TIRED',feedback:'Glorb was tired earlier. Right now, they kept doing something after he asked them to stop. How might that make him feel?'}
+      {label:'CALM',feedback:'Not quite. Glorb is getting more upset. Which feeling fits?'},
+      {label:'TIRED',feedback:'Glorb was tired earlier. How might he feel when they keep going after he says stop?'}
     ]}
   },
   {
@@ -142,7 +142,7 @@ const scenes = [
     multiChoice:{prompt:'GLORB NOTICED TWO WARNING SIGNS. WHICH TWO WERE THEY?', required:2, options:[
       {label:'HIS BODY FELT DIFFERENT',correct:true},
       {label:'THE DASHBOARD FLASHED',correct:true},
-      {label:'THE MUSIC WAS PLAYING',correct:false,feedback:'The music was not a warning sign. Look for one change in Glorb’s body and one change on the ship.'}
+      {label:'THE MUSIC WAS PLAYING',correct:false,feedback:'The music was not a warning. Look for a body change and a ship change.'}
     ], feedback:'Yes. Glorb noticed one warning in his body and one on the dashboard.'}
   },
   {
@@ -228,9 +228,9 @@ const scenes = [
       {t:'I was still dancing.',c:'glorb'}
     ],
     choice:{prompt:'WHAT DOES TOMMY LOOK LIKE HE IS FEELING?', options:[
-      {label:'HAPPY',feedback:'Not quite. Happy might look relaxed or smiley. Tommy looks tense.'},
+      {label:'HAPPY',feedback:'Not quite. Happy can look relaxed or smiley. Tommy looks tense.'},
       {label:'ANNOYED',correct:true,feedback:'Yes. Tommy looks annoyed. His face tightened, his body got tense, and he looked like he wanted space.'},
-      {label:'SAD',feedback:'Not quite. Sad might look low or droopy. Tommy looks tense and wants space.'}
+      {label:'SAD',feedback:'Not quite. Sad can look low or droopy. Tommy looks tense and wants space.'}
     ]}
   },
   {
@@ -238,7 +238,7 @@ const scenes = [
     lines:[{t:'If I had noticed the change right here, I could have responded differently.',c:'glorb'}],
     choice:{prompt:'What would give Tommy’s signal the best chance to settle?', options:[
       {label:'STOP + GIVE HIM SPACE',correct:true,feedback:'Yes. Notice the signal, reduce the pressure, give space.'},
-      {label:'DANCE CLOSER SO HE LAUGHS',feedback:'That could make things harder. Tommy is showing that he wants space.'},
+      {label:'DANCE CLOSER SO HE LAUGHS',feedback:'Tommy needs space. This could make things harder.'},
       {label:'SHOUT THE JOKE LOUDER',feedback:'Louder does not make the warning smaller.'}
     ], canonical:'Good choice. Unfortunately, this is not what Glorb did in the original incident.'}
   },
@@ -536,7 +536,7 @@ function placeEmotion(word,zone){
   } else {
     const correctZone=item[1];
     sfxRetry();
-    f.textContent=`NOT QUITE. ${word.toUpperCase()} FITS ${signalMeta[correctZone].label.toUpperCase()}, WHERE ${signalMeta[correctZone].short.toLowerCase()}`;
+    f.textContent=`NOT QUITE. ${word.toUpperCase()} FITS ${signalMeta[correctZone].label.toUpperCase()} — ${signalMeta[correctZone].short}`;
   }
 }
 function refreshSort(){
@@ -654,9 +654,9 @@ function renderReplay(){
   </section>`;
 
   const opts=[
-    ['KEEP DANCING UNTIL HE LAUGHS',false,'That could make things harder. Tommy is showing that he wants space.'],
+    ['KEEP DANCING UNTIL HE LAUGHS',false,'Tommy needs space. This could make things harder.'],
     ['STOP, STEP BACK + GIVE SPACE',true,'You noticed Tommy needed space.'],
-    ['GET CLOSER SO HE CAN HEAR',false,'Tommy is showing that he wants space. Getting closer does not give him space.'],
+    ['GET CLOSER SO HE CAN HEAR',false,'Tommy needs space. Getting closer does not help.'],
     ['ASK: “DO YOU WANT SOME SPACE?”',true,'Good. Glorb notices the signal and checks what Tommy needs.']
   ];
 

@@ -36,3 +36,17 @@ FINAL REQUESTED EDITS
 - Simpler GLORB final note.
 - Certificate revised with Signal names, strategies and de-escalation wording.
 - READ toggles to STOP READING while speech is active.
+
+V4 — HINT LANGUAGE ONLY
+- Made all requested wrong-answer hints shorter and simpler.
+- Kept the same meaning and answer logic.
+- Shortened Signal sort feedback to: “[FEELING] fits [SIGNAL] — [short description].”
+- No other content or layout changes in this pass.
+
+V6 — VERIFIED NAVIGATION VERSION
+- Support activity is ONE support card per screen, not 8 cards at once.
+- Each support screen shows RESPONSE 01 OF 08, 02 OF 08, etc.
+- NEXT stays disabled until the current support is answered correctly.
+- Wrong choices become grey + TRIED + disabled.
+- Replay explicitly says WHAT COULD GLORB DO NEXT? / Choose two answers.
+- Replay shows 0 OF 2 SELECTED, then 1 OF 2 SELECTED, then 2 OF 2 SELECTED.
