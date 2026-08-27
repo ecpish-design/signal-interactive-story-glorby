@@ -27,6 +27,9 @@ const readBtn = document.getElementById('readBtn');
 const transcriptBtn = document.getElementById('transcriptBtn');
 const transcriptDialog = document.getElementById('transcriptDialog');
 const transcriptContent = document.getElementById('transcriptContent');
+const adultBtn = document.getElementById('adultBtn');
+const adultDialog = document.getElementById('adultDialog');
+const adultCloseBtn = document.getElementById('adultCloseBtn');
 const evidenceDialog = document.getElementById('evidenceDialog');
 const evidenceTitle = document.getElementById('evidenceTitle');
 const evidenceContent = document.getElementById('evidenceContent');
@@ -581,7 +584,7 @@ function renderStrategies(){
       <div class="strategy-options">
         ${Object.keys(signalMeta).map(k=>`<button type="button" class="signal-choice ${k}" data-k="${k}" ${done?'disabled':''}>${signalMeta[k].label}</button>`).join('')}
       </div>
-      <div id="strategyFeedback" class="strategy-feedback" aria-live="polite">${done?`YES. ${escapeHTML(text)} CAN HELP WITH ${signalMeta[cat].label.toUpperCase()}.`:''}</div>
+      <div id="strategyFeedback" class="strategy-feedback" aria-live="polite">${done?`Yes. ${escapeHTML(text)} can help with ${signalMeta[cat].label} — ${signalMeta[cat].short}`:''}</div>
     </div>
 
     <div class="strategy-progress">
@@ -604,10 +607,11 @@ function renderStrategies(){
       sfxConfirm();
       renderStrategies();
     } else {
+      const wrongKey=b.dataset.k;
       b.classList.add('tried');
-      b.textContent=`${signalMeta[b.dataset.k].label} — TRIED`;
+      b.textContent=`${signalMeta[wrongKey].label} — TRIED`;
       b.disabled=true;
-      feedback.textContent='NOT QUITE. TRY ANOTHER SIGNAL.';
+      feedback.textContent=`Not quite. ${signalMeta[wrongKey].label} means ${signalMeta[wrongKey].short.toLowerCase()} ${text} fits better with ${signalMeta[cat].label}, where ${signalMeta[cat].short.toLowerCase()}`;
       sfxRetry();
     }
   }));
@@ -811,6 +815,31 @@ function openEvidence(title,img){evidenceTitle.textContent=title;evidenceContent
 document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'&&state.sceneUnlocked&&!document.querySelector('dialog[open]'))goTo(state.index+1);
   if(e.key==='ArrowLeft'&&state.index>0&&!document.querySelector('dialog[open]'))goTo(state.index-1);
+});
+
+
+adultBtn.addEventListener('click',()=>{
+  if(typeof adultDialog.showModal==='function') adultDialog.showModal();
+  else adultDialog.setAttribute('open','');
+});
+adultCloseBtn.addEventListener('click',()=>adultDialog.close());
+adultDialog.addEventListener('click',e=>{
+  if(e.target===adultDialog) adultDialog.close();
+});
+document.querySelectorAll('[data-adult-tab]').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    const key=tab.dataset.adultTab;
+    document.querySelectorAll('[data-adult-tab]').forEach(t=>{
+      const active=t===tab;
+      t.classList.toggle('active',active);
+      t.setAttribute('aria-selected',String(active));
+    });
+    document.querySelectorAll('[data-adult-panel]').forEach(panel=>{
+      const active=panel.dataset.adultPanel===key;
+      panel.classList.toggle('active',active);
+      panel.hidden=!active;
+    });
+  });
 });
 
 renderScene();

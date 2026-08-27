@@ -22,6 +22,9 @@
         <button id="soundBtn" class="icon-btn" type="button" aria-pressed="true" title="Sound on">SOUND: ON</button>
         <button id="readBtn" class="icon-btn" type="button" title="Read this screen aloud">READ</button>
         <button id="transcriptBtn" class="icon-btn" type="button" title="Open transcript">TRANSCRIPT</button>
+        <button id="adultBtn" class="icon-btn adult-open-btn" type="button" title="Information for adults">
+          <span class="adult-label-full">FOR ADULTS</span><span class="adult-label-short">ADULTS</span>
+        </button>
       </div>
     </header>
 
@@ -56,6 +59,142 @@
       <button class="icon-btn" type="button" data-close-dialog>EXIT</button>
     </div>
     <div id="evidenceContent" class="evidence-content"></div>
+  </dialog>
+
+  <dialog id="adultDialog" class="adult-dialog" aria-labelledby="adultDialogTitle">
+    <div class="adult-shell">
+      <div class="adult-head">
+        <div>
+          <div class="adult-kicker">FOR ADULTS</div>
+          <h2 id="adultDialogTitle">About the Signal Mission</h2>
+        </div>
+        <button id="adultCloseBtn" class="adult-close" type="button" aria-label="Close adult information">×</button>
+      </div>
+
+      <div class="adult-tabs" role="tablist" aria-label="Adult information sections">
+        <button class="adult-tab active" type="button" role="tab" aria-selected="true" aria-controls="adult-about" data-adult-tab="about">About</button>
+        <button class="adult-tab" type="button" role="tab" aria-selected="false" aria-controls="adult-learning" data-adult-tab="learning">Learning</button>
+        <button class="adult-tab" type="button" role="tab" aria-selected="false" aria-controls="adult-curriculum" data-adult-tab="curriculum">Curriculum</button>
+        <button class="adult-tab" type="button" role="tab" aria-selected="false" aria-controls="adult-evidence" data-adult-tab="evidence">Evidence + references</button>
+        <button class="adult-tab" type="button" role="tab" aria-selected="false" aria-controls="adult-use" data-adult-tab="use">Use + interpretation</button>
+      </div>
+
+      <div class="adult-content">
+        <section id="adult-about" class="adult-panel active" role="tabpanel" data-adult-panel="about">
+          <div class="adult-card">
+            <h3>What is it?</h3>
+            <p><strong>GLORB // Signal Mission</strong> is an explicit-teaching interactive story that helps students notice changing signals in themselves and others, connect body and behaviour clues with Signal levels, and practise choosing responses that may help.</p>
+          </div>
+          <div class="adult-card">
+            <h3>What it is for</h3>
+            <p>It makes changes in signals easier to notice by teaching <strong>Low, Steady, Rising and Overload</strong> one at a time, then applying them to Glorb and Tommy.</p>
+          </div>
+          <div class="adult-card">
+            <h3>Learning focus</h3>
+            <p>Students notice body clues, emotions and behaviour, match strategies to Signal levels, and choose a response that may support de-escalation.</p>
+          </div>
+          <div class="adult-card">
+            <h3>Teaching aid, not a real-life test</h3>
+            <p>Completion shows supported performance inside this lesson. It does not prove that a student can independently identify or respond to every real-life situation.</p>
+          </div>
+        </section>
+
+        <section id="adult-learning" class="adult-panel" role="tabpanel" data-adult-panel="learning" hidden>
+          <div class="adult-card adult-card-wide">
+            <h3>Learning sequence</h3>
+            <p class="adult-flow"><strong>NOTICE → CONNECT → IDENTIFY → RESPOND</strong></p>
+          </div>
+          <div class="adult-card signal-adult-card low">
+            <h3>Low Signal</h3>
+            <p>Energy is running low.</p>
+          </div>
+          <div class="adult-card signal-adult-card steady">
+            <h3>Steady Signal</h3>
+            <p>Things are working as expected.</p>
+          </div>
+          <div class="adult-card signal-adult-card rising">
+            <h3>Rising Signal</h3>
+            <p>Something is building.</p>
+          </div>
+          <div class="adult-card signal-adult-card overload">
+            <h3>Signal Overload</h3>
+            <p>The system is overwhelmed.</p>
+          </div>
+          <div class="adult-card">
+            <h3>Students practise</h3>
+            <p>Noticing body clues; noticing emotions and behaviour in others; matching strategies to Signal levels; and choosing a response that may support de-escalation.</p>
+          </div>
+        </section>
+
+        <section id="adult-curriculum" class="adult-panel" role="tabpanel" data-adult-panel="curriculum" hidden>
+          <div class="adult-card">
+            <h3>Australian Curriculum v9.0</h3>
+            <p><strong>Personal and Social Capability</strong><br>Social Management → Communication</p>
+          </div>
+          <div class="adult-card">
+            <h3>Years 5–6 connection</h3>
+            <p>The strongest link is Communication at Level 4: addressing factors that influence effective verbal and non-verbal communication in a range of contexts.</p>
+          </div>
+          <div class="adult-card">
+            <h3>What this lesson practises</h3>
+            <p>Recognising body, behaviour and communication cues; noticing when an interaction changes; and selecting a response that may better fit the situation.</p>
+          </div>
+          <div class="adult-card">
+            <h3>Curriculum source</h3>
+            <p><a href="https://www.australiancurriculum.edu.au/curriculum-information/understand-this-general-capability/personal-and-social-capability" target="_blank" rel="noopener">Australian Curriculum v9.0 — Personal and Social Capability</a></p>
+          </div>
+        </section>
+
+        <section id="adult-evidence" class="adult-panel adult-evidence-grid" role="tabpanel" data-adult-panel="evidence" hidden>
+          <div class="adult-evidence-cards">
+            <div class="adult-card">
+              <h3>Explicit teaching</h3>
+              <p>The Signal categories are explained before learners are asked to apply them. AERO recommends explaining, demonstrating and modelling new content before less-guided practice.</p>
+            </div>
+            <div class="adult-card">
+              <h3>Segmentation</h3>
+              <p>The story breaks learning into smaller scenes and decisions rather than presenting the whole task at once. This is intended to reduce unnecessary cognitive load.</p>
+            </div>
+            <div class="adult-card">
+              <h3>Formative feedback</h3>
+              <p>Wrong responses explain the distinction and support another attempt instead of only marking the answer wrong.</p>
+            </div>
+            <div class="adult-card">
+              <h3>Accessible interaction</h3>
+              <p>The interface uses labelled controls, keyboard access, visible feedback, read-aloud support and responsive layouts. WCAG 2.2 includes guidance for reflow, readable labels, keyboard access and target size.</p>
+            </div>
+          </div>
+          <div class="adult-card adult-reference-card">
+            <h3>References</h3>
+            <ol>
+              <li>Australian Curriculum, Assessment and Reporting Authority. <a href="https://www.australiancurriculum.edu.au/curriculum-information/understand-this-general-capability/personal-and-social-capability" target="_blank" rel="noopener">Personal and Social Capability, Australian Curriculum v9.0.</a></li>
+              <li>Australian Education Research Organisation. (2024, updated 2025). <a href="https://www.edresearch.edu.au/guides-resources/practice-guides/teach-explicitly" target="_blank" rel="noopener">Teach explicitly.</a></li>
+              <li>World Wide Web Consortium. (2023). <a href="https://www.w3.org/WAI/WCAG22/quickref/" target="_blank" rel="noopener">How to Meet WCAG 2.2 (Quick Reference).</a></li>
+              <li>World Wide Web Consortium. <a href="https://www.w3.org/WAI/cognitive/" target="_blank" rel="noopener">Cognitive Accessibility at W3C.</a></li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="adult-use" class="adult-panel" role="tabpanel" data-adult-panel="use" hidden>
+          <div class="adult-card adult-important">
+            <h3>Important</h3>
+            <p><strong>This activity teaches a simplified framework for noticing changing signals. It is not a clinical, behavioural or psychological assessment.</strong></p>
+          </div>
+          <div class="adult-card">
+            <h3>Use with in-person teaching</h3>
+            <p>Pair the story with discussion, adult modelling, real examples and opportunities to practise outside the screen.</p>
+          </div>
+          <div class="adult-card">
+            <h3>Signals are contextual</h3>
+            <p>People may show Low, Steady, Rising or Overload differently. The examples in this lesson are teaching examples, not fixed rules.</p>
+          </div>
+          <div class="adult-card">
+            <h3>Support is individual</h3>
+            <p>Different strategies help different people. The activity gives examples rather than prescribing one correct support for everyone.</p>
+          </div>
+        </section>
+      </div>
+    </div>
   </dialog>
 
   <template id="choiceTemplate">

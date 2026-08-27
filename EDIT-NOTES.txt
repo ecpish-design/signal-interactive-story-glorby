@@ -50,3 +50,16 @@ V6 — VERIFIED NAVIGATION VERSION
 - Wrong choices become grey + TRIED + disabled.
 - Replay explicitly says WHAT COULD GLORB DO NEXT? / Choose two answers.
 - Replay shows 0 OF 2 SELECTED, then 1 OF 2 SELECTED, then 2 OF 2 SELECTED.
+
+FINAL MASTER EDIT
+- Added FOR ADULTS button beside Sound / Read / Transcript.
+- Added five-tab adult panel: About, Learning, Curriculum, Evidence + references, Use + interpretation.
+- Adult panel uses real ACARA, AERO and W3C references/links.
+- Kept the one-support-card-per-screen activity.
+- Replaced generic support feedback with specific feedback explaining the selected Signal and the better match.
+- Increased small/tiny UI text, especially support-card labels, feedback and progress.
+- Added a light-blue interaction surface to action/choice areas.
+- Kept wrong choices grey + TRIED + disabled.
+- Kept replay instructions: WHAT COULD GLORB DO NEXT? / Choose two answers / 0→1→2 of 2 selected.
+- Preserved the simplified hints, Amy “at the office” wording, final note and revised certificate.
+- Reinforced no-page-scroll responsive activity layouts for desktop, iPad/tablet and iPhone/mobile without changing lesson structure.
