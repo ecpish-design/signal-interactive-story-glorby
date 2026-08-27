@@ -78,3 +78,9 @@ V3 — SCROLL + SPACING RESTORED
 - Removed the opening-screen viewport-fit compression.
 - Removed compact spacing rules that were only added to force every activity into one viewport.
 - Returned the opening screen and activity layouts to normal document flow.
+
+V4 — DEFINITIVE SCROLL FIX
+- Removed the old max-width 1100px and 699px one-screen/no-scroll CSS blocks completely.
+- Restored normal document scrolling on desktop, iPad and iPhone.
+- Restored the original responsive spacing rather than compressing every screen.
+- Kept all content edits, adult panel, larger fonts, light-blue interaction areas, specific hints, one-card support sequence, replay changes and certificate edits.

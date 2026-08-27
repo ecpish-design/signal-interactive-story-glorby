@@ -106,154 +106,6 @@ button{cursor:pointer}
   filter:drop-shadow(0 16px 22px rgba(13,17,20,.05));
 }
 
-/* One-screen tablet/mobile layout. The fixed story controls remain reachable
-   without vertical page scrolling. */
-@media(max-width:1100px){
-  html,body{height:100%;overflow:hidden}
-  .app-shell{height:100%;min-height:0;overflow:hidden}
-  .hud-top{
-    height:58px;min-height:58px;padding:7px 14px;
-    grid-template-columns:1fr auto;
-  }
-  .hud-progress{display:none}
-  .hud-brand{font-size:9px}
-  .hud-actions{gap:4px}
-  .icon-btn{font-size:9px;padding:7px 9px}
-  .ticker{height:20px;top:58px}
-  .ticker-text{padding:5px 0;font-size:8px}
-  .story-nav{height:50px;padding:0 12px}
-  .nav-btn{padding:8px 10px;font-size:9px}
-  .nav-hint{font-size:7px;padding:0 6px}
-  .scene{
-    height:calc(100dvh - 128px);
-    min-height:0;
-    overflow:hidden;
-    padding:12px 16px 54px;
-  }
-  .scene-wrap{
-    width:100%;
-    height:100%;
-    min-height:0;
-    gap:16px;
-    grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
-    align-items:center;
-  }
-  .scene-wrap.full{height:100%;overflow:hidden}
-  .scene-wrap.text-only{display:grid;grid-template-columns:1fr;align-content:center}
-  .copy-zone{min-width:0}
-  .eyebrow{font-size:8px;margin-bottom:6px}
-  .scene-title{font-size:clamp(28px,5vw,52px);margin-bottom:12px}
-  .scene-title.small{font-size:clamp(25px,4vw,42px)}
-  .scene-subtitle{font-size:9px;margin-bottom:10px}
-  .story-lines{gap:6px}
-  .story-line{font-size:clamp(14px,1.8vw,20px);line-height:1.18}
-  .story-line.big{font-size:clamp(20px,3vw,34px)}
-  .story-line.glorb:before{font-size:8px}
-  .prompt-box{margin-top:12px;padding-top:10px}
-  .prompt-title{font-size:8px;margin-bottom:7px}
-  .choice-grid{gap:6px}
-  .choice-card{min-height:40px;padding:8px 10px;font-size:12px}
-  .feedback{margin-top:7px;padding:7px 9px;font-size:12px;line-height:1.3}
-  .art-zone{min-height:0;height:100%;max-height:100%}
-  .art-img,.art-img.large,.art-img.small{max-height:calc(100dvh - 175px);max-width:100%}
-  .hud-card{padding:10px 12px}
-  .graph-inspector{margin-top:10px;padding:8px}
-  .graph-wrap img{max-height:27dvh}
-  .graph-nodes{gap:4px;margin-top:7px}
-  .graph-node{padding:7px 4px;font-size:8px}
-  .graph-readout{min-height:36px;margin-top:6px;font-size:12px;line-height:1.25}
-  .signal-tabs{gap:5px;margin-top:10px}
-  .signal-tab{padding:8px 4px;font-size:8px}
-  .signal-panel{gap:12px;margin-top:9px;padding-top:9px}
-  .signal-panel img{max-height:20dvh}
-  .signal-copy h3{font-size:22px;margin-bottom:4px}
-  .signal-copy p{font-size:12px;line-height:1.3;margin:3px 0}
-  .signal-note{font-size:8px!important;padding-top:6px;margin-top:7px!important}
-  .sort-layout{gap:10px;grid-template-columns:minmax(160px,.55fr) minmax(0,1.45fr)}
-  .card-bank{position:static;padding:8px}
-  .emotion-bank{gap:4px}
-  .emotion-card{padding:7px 8px;font-size:10px}
-  .drop-grid{gap:6px}
-  .drop-zone{min-height:118px;padding:8px}
-  .drop-zone h3{font-size:10px;margin-bottom:6px}
-  .placed-list{gap:3px}
-  .placed-pill{padding:3px 5px;font-size:8px}
-  .reveal-strip{max-height:13dvh;margin-top:6px}
-  .sort-status{margin-top:6px;font-size:8px}
-  .strategy-board{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:8px}
-  .strategy-card{padding:7px}
-  .strategy-card .eyebrow{font-size:7px}
-  .strategy-card h3{font-size:11px;margin-bottom:4px}
-  .strategy-options{gap:3px;margin-top:4px}
-  .strategy-options button{padding:5px 3px;font-size:7px}
-  .mission-complete{padding:10px 0}
-  .mission-complete .art-img.small{max-height:18dvh}
-  .complete-grid{gap:4px;margin:10px 0}
-  .complete-item{padding:7px 4px;font-size:8px}
-  .certificate{max-height:calc(100dvh - 145px);overflow:hidden;padding:18px;margin:0 auto}
-  .certificate h1{font-size:clamp(28px,5vw,48px);margin:6px 0 10px}
-  .cert-name{font-size:clamp(22px,4vw,36px);margin:8px 0 10px}
-  .cert-body{font-size:11px;line-height:1.35}
-  .cert-body p{margin:5px 0}
-  .cert-stamp{margin-top:9px;font-size:8px}
-  .cert-actions{margin-top:8px;gap:5px}
-  .artifact-frame{height:calc(100dvh - 205px);margin-top:4px}
-}
-
-/* Phone portrait: stack image over copy, but keep both within the single screen. */
-@media(max-width:699px){
-  .hud-top{height:54px;min-height:54px;padding:5px 8px}
-  .hud-brand span:last-child{font-size:8px}
-  .hud-actions .icon-btn{padding:6px 7px;font-size:8px}
-  #soundBtn{display:none}
-  .ticker{height:18px;top:54px}
-  .scene{height:calc(100dvh - 122px);padding:7px 9px 50px}
-  .story-nav{height:50px}
-  .scene-wrap{
-    grid-template-columns:1fr;
-    grid-template-rows:minmax(0,.40fr) minmax(0,.60fr);
-    gap:6px;
-    align-items:center;
-  }
-  .scene-wrap.text-only{grid-template-rows:1fr}
-  .art-zone{order:-1;min-height:0;height:100%}
-  .art-img,.art-img.large,.art-img.small{max-height:27dvh}
-  .scene-title{font-size:clamp(24px,8vw,38px);margin-bottom:7px}
-  .scene-title.small{font-size:clamp(22px,7vw,34px)}
-  .story-lines{gap:3px}
-  .story-line{font-size:clamp(12px,3.6vw,16px)}
-  .story-line.big{font-size:clamp(18px,5vw,25px)}
-  .choice-grid{grid-template-columns:1fr 1fr;gap:4px}
-  .choice-card{min-height:34px;padding:6px 7px;font-size:10px}
-  .feedback{font-size:10px;padding:5px 7px}
-  .scene-wrap.full{display:block}
-  .graph-wrap img{max-height:22dvh}
-  .graph-readout{font-size:10px}
-  .signal-panel{grid-template-columns:1fr 1fr}
-  .signal-panel img{max-height:14dvh}
-  .signal-copy h3{font-size:16px}
-  .signal-copy p{font-size:9px}
-  .sort-layout{grid-template-columns:1fr;gap:4px}
-  .card-bank{display:flex;gap:6px;align-items:center}
-  .bank-title{display:none}
-  .emotion-bank{flex:1}
-  .drop-grid{grid-template-columns:repeat(2,1fr);gap:4px}
-  .drop-zone{min-height:78px;padding:5px}
-  .drop-zone h3{font-size:8px}
-  .reveal-strip{max-height:9dvh}
-  .strategy-board{grid-template-columns:repeat(2,1fr);gap:3px}
-  .strategy-card{padding:5px}
-  .strategy-card h3{font-size:9px}
-  .strategy-options{grid-template-columns:repeat(2,1fr)}
-  .strategy-options button{font-size:6px;padding:4px 2px}
-  .artifact-frame{height:calc(100dvh - 175px)}
-  .certificate{padding:10px}
-  .certificate h1{font-size:26px}
-  .cert-body{font-size:9px}
-  .cert-actions .nav-btn{font-size:7px;padding:5px}
-}
-
-
 /* Final approved interaction refinements */
 .zone-desc{margin:-3px 0 10px;font-size:12px;line-height:1.3;color:var(--muted);}
 .prompt-helper{margin:4px 0 10px;font-size:14px;font-weight:700;color:var(--muted);}
@@ -591,4 +443,114 @@ html, body{
   height:auto;
   min-height:0;
   overflow:visible;
+}
+
+
+/* =========================================================
+   DEFINITIVE SCROLL RESTORE
+   Normal document flow on desktop, iPad and iPhone.
+   ========================================================= */
+html,
+body{
+  height:auto !important;
+  min-height:100% !important;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+  -webkit-overflow-scrolling:touch;
+}
+
+body{
+  position:static !important;
+}
+
+.app-shell{
+  height:auto !important;
+  min-height:100vh !important;
+  max-height:none !important;
+  overflow:visible !important;
+}
+
+.scene,
+.start-scene{
+  height:auto !important;
+  min-height:calc(100vh - 154px) !important;
+  max-height:none !important;
+  overflow:visible !important;
+}
+
+.scene-wrap,
+.scene-wrap.full,
+.scene-wrap.centered,
+.start-scene .scene-wrap.centered{
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+  overflow:visible !important;
+}
+
+.art-zone,
+.copy-zone,
+.prompt-box,
+.sort-layout,
+.strategy-single,
+.strategy-card-single,
+.certificate{
+  max-height:none !important;
+  overflow:visible !important;
+}
+
+/* Restore the original responsive spacing instead of compressing everything
+   to one viewport. */
+@media(max-width:900px){
+  .scene{
+    padding:28px 18px 100px !important;
+  }
+  .scene-wrap{
+    grid-template-columns:1fr !important;
+    min-height:auto !important;
+    gap:20px !important;
+  }
+  .art-zone{
+    min-height:340px !important;
+    height:auto !important;
+    order:-1;
+  }
+  .art-img,
+  .art-img.large,
+  .art-img.small{
+    max-height:50vh !important;
+  }
+  .choice-grid{
+    grid-template-columns:1fr !important;
+  }
+  .sort-layout{
+    grid-template-columns:1fr !important;
+  }
+  .card-bank{
+    position:static !important;
+  }
+  .drop-grid{
+    grid-template-columns:1fr !important;
+  }
+  .signal-tabs{
+    grid-template-columns:repeat(2,1fr) !important;
+  }
+  .signal-panel{
+    grid-template-columns:1fr !important;
+  }
+}
+
+@media(max-width:699px){
+  .scene{
+    padding:22px 14px 96px !important;
+  }
+  .art-zone{
+    min-height:260px !important;
+  }
+  .strategy-card-single{
+    padding:18px !important;
+  }
+  .strategy-card-single .strategy-options{
+    grid-template-columns:1fr !important;
+  }
 }
