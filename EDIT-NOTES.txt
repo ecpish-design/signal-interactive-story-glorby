@@ -70,3 +70,11 @@ VIEWPORT-FIT FIX
 - Shrinks/reflows Glorb image, title, intro copy and name-entry controls according to available viewport height.
 - Added shorter-window desktop rules plus dedicated tablet/iPad and iPhone sizing.
 - No story structure, wording, learning sequence or interaction logic changed.
+
+V3 — SCROLL + SPACING RESTORED
+- Kept all approved content, interaction, adult-panel, font-size, hint, certificate and colour edits.
+- Removed the forced no-scroll viewport behaviour.
+- Restored normal vertical page scrolling.
+- Removed the opening-screen viewport-fit compression.
+- Removed compact spacing rules that were only added to force every activity into one viewport.
+- Returned the opening screen and activity layouts to normal document flow.
