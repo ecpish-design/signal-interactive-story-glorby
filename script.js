@@ -336,7 +336,7 @@ function standardScene(scene){
 
 function renderStart(){
   currentTranscript=['Glorb: The Signal Mission','Enter your name to begin the mission.'];
-  sceneEl.className='scene';
+  sceneEl.className='scene start-scene';
   sceneEl.innerHTML=`<section class="scene-wrap centered">
     <div class="art-zone" style="min-height:300px"><img class="art-img small" src="${A('glorb-front')}" alt="Glorb standing"></div>
     <div class="copy-zone" style="margin-top:-45px">

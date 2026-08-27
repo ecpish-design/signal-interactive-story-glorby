@@ -63,3 +63,10 @@ FINAL MASTER EDIT
 - Kept replay instructions: WHAT COULD GLORB DO NEXT? / Choose two answers / 0→1→2 of 2 selected.
 - Preserved the simplified hints, Amy “at the office” wording, final note and revised certificate.
 - Reinforced no-page-scroll responsive activity layouts for desktop, iPad/tablet and iPhone/mobile without changing lesson structure.
+
+VIEWPORT-FIT FIX
+- Opening screen now has its own responsive `start-scene` layout.
+- Keeps the no-scroll requirement.
+- Shrinks/reflows Glorb image, title, intro copy and name-entry controls according to available viewport height.
+- Added shorter-window desktop rules plus dedicated tablet/iPad and iPhone sizing.
+- No story structure, wording, learning sequence or interaction logic changed.

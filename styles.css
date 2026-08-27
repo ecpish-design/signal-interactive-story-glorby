@@ -608,3 +608,183 @@ html,body{height:100%;overflow:hidden}
   .adult-card p,.adult-card li{font-size:12px;line-height:1.3}
   .adult-flow{font-size:16px!important}
 }
+
+
+/* =========================================================
+   VIEWPORT-FIT FIX — opening screen
+   Keeps the no-scroll experience, but makes the full opening
+   screen fit inside the available browser/iPad/iPhone viewport.
+   ========================================================= */
+.start-scene{
+  padding-top:12px;
+  padding-bottom:58px;
+}
+.start-scene .scene-wrap.centered{
+  height:100%;
+  min-height:0;
+  display:grid;
+  grid-template-columns:1fr;
+  grid-template-rows:minmax(150px,.85fr) auto;
+  gap:0;
+  align-content:center;
+  align-items:center;
+}
+.start-scene .art-zone{
+  min-height:0!important;
+  height:clamp(165px,29dvh,300px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.start-scene .art-img.small{
+  width:auto;
+  max-width:min(34vw,330px);
+  max-height:100%;
+  object-fit:contain;
+}
+.start-scene .copy-zone{
+  margin-top:-18px!important;
+}
+.start-scene .eyebrow{
+  margin-bottom:6px;
+}
+.start-scene .scene-title{
+  margin:0 0 10px;
+  font-size:clamp(42px,7.2dvh,84px);
+  line-height:.86;
+}
+.start-scene .scene-subtitle{
+  margin-bottom:10px;
+  font-size:11px;
+}
+.start-scene .hud-card{
+  max-width:720px!important;
+  padding:12px 14px;
+}
+.start-scene .hud-card > p{
+  font-size:15px!important;
+  line-height:1.3!important;
+}
+.start-scene .name-entry{
+  margin-top:10px;
+}
+.start-scene .name-entry input,
+.start-scene .name-entry button{
+  min-height:46px;
+}
+
+/* Shorter desktop/laptop browser windows */
+@media (min-width:700px) and (max-height:820px){
+  .start-scene{
+    padding-top:4px;
+    padding-bottom:52px;
+  }
+  .start-scene .scene-wrap.centered{
+    grid-template-rows:minmax(120px,.72fr) auto;
+  }
+  .start-scene .art-zone{
+    height:clamp(125px,23dvh,215px);
+  }
+  .start-scene .copy-zone{
+    margin-top:-10px!important;
+  }
+  .start-scene .scene-title{
+    font-size:clamp(36px,6.2dvh,66px);
+    margin-bottom:6px;
+  }
+  .start-scene .scene-subtitle{
+    margin-bottom:7px;
+    font-size:9px;
+  }
+  .start-scene .hud-card{
+    padding:9px 12px;
+  }
+  .start-scene .hud-card > p{
+    font-size:13px!important;
+    line-height:1.22!important;
+  }
+  .start-scene .name-entry{
+    margin-top:7px;
+  }
+  .start-scene .name-entry input,
+  .start-scene .name-entry button{
+    min-height:40px;
+  }
+}
+
+/* iPad / tablet */
+@media (max-width:1100px){
+  .start-scene{
+    padding-top:4px;
+    padding-bottom:50px;
+  }
+  .start-scene .scene-wrap.centered{
+    grid-template-rows:minmax(120px,.7fr) auto;
+    gap:0;
+  }
+  .start-scene .art-zone{
+    order:0;
+    height:clamp(120px,24dvh,220px);
+  }
+  .start-scene .art-img.small{
+    max-width:min(42vw,260px);
+  }
+  .start-scene .copy-zone{
+    margin-top:-8px!important;
+  }
+  .start-scene .scene-title{
+    font-size:clamp(34px,6.3dvh,62px);
+    margin-bottom:6px;
+  }
+  .start-scene .hud-card > p{
+    font-size:13px!important;
+    line-height:1.24!important;
+  }
+}
+
+/* iPhone / narrow mobile */
+@media (max-width:699px){
+  .start-scene{
+    padding:3px 8px 48px;
+  }
+  .start-scene .scene-wrap.centered{
+    grid-template-rows:minmax(95px,.58fr) auto;
+  }
+  .start-scene .art-zone{
+    height:clamp(95px,20dvh,155px);
+  }
+  .start-scene .art-img.small{
+    max-width:min(48vw,180px);
+  }
+  .start-scene .copy-zone{
+    margin-top:-4px!important;
+  }
+  .start-scene .eyebrow{
+    font-size:8px;
+    margin-bottom:3px;
+  }
+  .start-scene .scene-title{
+    font-size:clamp(29px,5.8dvh,48px);
+    margin-bottom:4px;
+  }
+  .start-scene .scene-subtitle{
+    font-size:8px;
+    line-height:1.15;
+    margin-bottom:5px;
+  }
+  .start-scene .hud-card{
+    padding:7px 8px;
+  }
+  .start-scene .hud-card > p{
+    font-size:11px!important;
+    line-height:1.18!important;
+  }
+  .start-scene .name-entry{
+    margin-top:5px;
+  }
+  .start-scene .name-entry input,
+  .start-scene .name-entry button{
+    min-height:38px;
+    font-size:11px;
+  }
+}
