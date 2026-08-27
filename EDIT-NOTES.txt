@@ -1,0 +1,52 @@
+GLORB // SIGNAL MISSION — EDIT BRANCH FILES
+
+Replace only these files on your `signal-mission-edits` branch:
+- script.js
+- styles.css
+
+index.html is included for convenience but is unchanged.
+
+DO NOT replace or re-upload the assets folder. All existing asset filenames are reused.
+
+Implemented:
+1. Easier WHAT HAPPENED? question.
+2. Wrong options become grey, disabled, and marked — TRIED.
+3. Compact no-scroll tablet/mobile styling.
+4. Gleborna question changed to how Glorb feels.
+5. Two-warning question simplified.
+6. Field Research setup no longer repeats the letter.
+7. Separate letter image screen.
+8. Text-only school transition screen added.
+9. Tommy question changed to HAPPY / ANNOYED / SAD with body-sign hints.
+10. Tommy push wording separates responsibility from Glorb's reflection.
+11. 19-emotion sort reduced to 4 practice emotions; full guide reveals afterward.
+12. Replay answers mixed; wrong answers become grey/TRIED.
+13. Certificate and all unmentioned scenes remain unchanged.
+
+FINAL REQUESTED EDITS
+- WHAT SHOULD GLORB DO FIRST?
+- Simplified all listed wrong-answer hints.
+- Amy wording changed to 'at the office'.
+- Signal sort has short zone descriptions and shorter hints.
+- Support activity changed to one support card per screen with progress and Back/Next.
+- Support choices are colour-coded; wrong choices become grey + TRIED + disabled.
+- Replay now says WHAT COULD GLORB DO NEXT? / Choose two answers and requires two correct choices.
+- Replay shows 0 OF 2 / 1 OF 2 / 2 OF 2 SELECTED.
+- 'You noticed Tommy needed space.' feedback.
+- Simpler GLORB final note.
+- Certificate revised with Signal names, strategies and de-escalation wording.
+- READ toggles to STOP READING while speech is active.
+
+V4 — HINT LANGUAGE ONLY
+- Made all requested wrong-answer hints shorter and simpler.
+- Kept the same meaning and answer logic.
+- Shortened Signal sort feedback to: “[FEELING] fits [SIGNAL] — [short description].”
+- No other content or layout changes in this pass.
+
+V6 — VERIFIED NAVIGATION VERSION
+- Support activity is ONE support card per screen, not 8 cards at once.
+- Each support screen shows RESPONSE 01 OF 08, 02 OF 08, etc.
+- NEXT stays disabled until the current support is answered correctly.
+- Wrong choices become grey + TRIED + disabled.
+- Replay explicitly says WHAT COULD GLORB DO NEXT? / Choose two answers.
+- Replay shows 0 OF 2 SELECTED, then 1 OF 2 SELECTED, then 2 OF 2 SELECTED.
